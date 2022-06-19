@@ -1,0 +1,583 @@
+\documentclass[12pt]{extreport}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}        % Кодировка входного документа;
+                                    % при необходимости, вместо cp1251
+                                    % можно указать cp866 (Alt-кодировка
+                                    % DOS) или koi8-r.
+
+\usepackage[english,russian]{babel} % Включение русификации, русских и
+                                    % английских стилей и переносов
+%%\usepackage{a4}
+%%\usepackage{moreverb}
+\usepackage{amsmath,amsfonts,amsthm,amssymb,amsbsy,amstext,amscd,amsxtra,multicol}
+\usepackage{indentfirst}
+\usepackage{verbatim}
+\usepackage{tikz} %Рисование автоматов
+\usepackage{enumitem}
+\usetikzlibrary{automata,positioning}
+\usepackage{multicol} %Несколько колонок
+\usepackage{graphicx}
+\usepackage[colorlinks,urlcolor=blue]{hyperref}
+\usepackage[stable]{footmisc}
+
+%% \voffset-5mm
+%% \def\baselinestretch{1.44}
+\renewcommand{\theequation}{\arabic{equation}}
+\def\hm#1{#1\nobreak\discretionary{}{\hbox{$#1$}}{}}
+\newtheorem{Lemma}{Лемма}
+\theoremstyle{definiton}
+\newtheorem{Remark}{Замечание}
+%%\newtheorem{Def}{Определение}
+\newtheorem{Claim}{Утверждение}
+\newtheorem{Cor}{Следствие}
+\newtheorem{Theorem}{Теорема}
+\theoremstyle{definition}
+\newtheorem{Example}{Пример}
+\newtheorem*{known}{Теорема}
+\def\proofname{Доказательство}
+\theoremstyle{definition}
+\newtheorem{Def}{Определение}
+
+%% \newenvironment{Example} % имя окружения
+%% {\par\noindent{\bf Пример.}} % команды для \begin
+%% {\hfill$\scriptstyle\qed$} % команды для \end
+
+
+
+
+
+
+%\date{22 июня 2011 г.}
+\let\leq\leqslant
+\let\geq\geqslant
+\def\MT{\mathrm{MT}}
+%Обозначения ``ажуром''
+\def\BB{\mathbb B}
+\def\CC{\mathbb C}
+\def\RR{\mathbb R}
+\def\SS{\mathbb S}
+\def\ZZ{\mathbb Z}
+\def\NN{\mathbb N}
+\def\FF{\mathbb F}
+%греческие буквы
+\let\epsilon\varepsilon
+\let\es\varnothing
+\let\eps\varepsilon
+\let\al\alpha
+\let\sg\sigma
+\let\ga\gamma
+\let\ph\varphi
+\let\om\omega
+\let\ld\lambda
+\let\Ld\Lambda
+\let\vk\varkappa
+\let\Om\Omega
+\def\abstractname{}
+
+\def\R{{\cal R}}
+\def\A{{\cal A}}
+\def\B{{\cal B}}
+\def\C{{\cal C}}
+\def\D{{\cal D}}
+
+%классы сложности
+\def\REG{{\mathsf{REG}}}
+\def\CFL{{\mathsf{CFL}}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Problems macros  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%% Enumerations %%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\Rnum}[1]{\expandafter{\romannumeral #1\relax}}
+\newcommand{\RNum}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
+
+%%%%%%%%%%%%%%%%%%%%% EOF Enumerations %%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{xparse}
+\usepackage{ifthen}
+\usepackage{bm} %%% bf in math mode
+\usepackage{color}
+%\usepackage[usenames,dvipsnames]{xcolor}
+
+\definecolor{Gray555}{HTML}{555555}
+\definecolor{Gray444}{HTML}{444444}
+\definecolor{Gray333}{HTML}{333333}
+
+
+\newcounter{problem}
+\newcounter{uproblem}
+\newcounter{subproblem}
+\newcounter{prvar}
+
+\def\beforPRskip{
+	\bigskip
+	%\vspace*{2ex}
+}
+
+\def\PRSUBskip{
+	\medskip
+}
+
+
+\def\pr{\beforPRskip\noindent\stepcounter{problem}{\bf \theproblem .\;}\setcounter{subproblem}{0}}
+\def\pru{\beforPRskip\noindent\stepcounter{problem}{\bf $\mathbf{\theproblem}^\circ$\!\!.\;}\setcounter{subproblem}{0}}
+\def\prstar{\beforPRskip\noindent\stepcounter{problem}{\bf $\mathbf{\theproblem}^*$\negthickspace.}\setcounter{subproblem}{0}\;}
+\def\prpfrom[#1]{\beforPRskip\noindent\stepcounter{problem}{\bf Задача \theproblem~(№#1 из задания).  }\setcounter{subproblem}{0} }
+\def\prp{\beforPRskip\noindent\stepcounter{problem}{\bf Задача \theproblem .  }\setcounter{subproblem}{0} }
+
+\def\prpvar{\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{1}{\bf Задача \theproblem \;$\langle${\rm\Rnum{\theprvar}}$\rangle$.}\setcounter{subproblem}{0}\;}
+\def\prpv{\beforPRskip\noindent\stepcounter{prvar}{\bf Задача \theproblem \,$\bm\langle$\bracketspace{{\rm\Rnum{\theprvar}}}$\bm\rangle$.  }\setcounter{subproblem}{0} }
+\def\prv{\beforPRskip\noindent\stepcounter{prvar}{\bf \theproblem\,$\bm\langle$\bracketspace{{\rm\Rnum{\theprvar}}}$\bm\rangle$}.\setcounter{subproblem}{0} }
+
+\def\prpstar{\beforPRskip\noindent\stepcounter{problem}{\bf Задача $\bf\theproblem^*$\negthickspace.  }\setcounter{subproblem}{0} }
+\def\prdag{\beforPRskip\noindent\stepcounter{problem}{\bf Задача $\theproblem^{^\dagger}$\negthickspace\,.  }\setcounter{subproblem}{0} }
+\def\upr{\beforPRskip\noindent\stepcounter{uproblem}{\bf Упражнение \theuproblem .  }\setcounter{subproblem}{0} }
+%\def\prp{\vspace{5pt}\stepcounter{problem}{\bf Задача \theproblem .  } }
+%\def\prs{\vspace{5pt}\stepcounter{problem}{\bf \theproblem .*   }
+\def\prsub{\PRSUBskip\noindent\stepcounter{subproblem}{\sf \thesubproblem .} }
+\def\prsubr{\PRSUBskip\noindent\stepcounter{subproblem}{\bf \asbuk{subproblem})}\;}
+\def\prsubstar{\PRSUBskip\noindent\stepcounter{subproblem}{\rm $\thesubproblem^*$\negthickspace.  } }
+\def\prsubrstar{\PRSUBskip\noindent\stepcounter{subproblem}{$\text{\bf \asbuk{subproblem}}^*\mathbf{)}$}\;}
+
+\newcommand{\bracketspace}[1]{\phantom{(}\!\!{#1}\!\!\phantom{)}}
+
+\DeclareDocumentCommand{\Prpvar}{ O{null} O{} }{
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{1}{\bf Задача \theproblem
+% 	\ifthenelse{\equal{#1}{null}}{  }{ {\sf $\bm\langle$\bracketspace{#1}$\bm\rangle$}}
+%	~\!\!(\bracketspace{{\rm\Rnum{\theprvar}}}).  }\setcounter{subproblem}{0}
+%	\;(\bracketspace{{\rm\Rnum{\theprvar}}})}\setcounter{subproblem}{0}
+%
+	\,{\sf $\bm\langle$\bracketspace{{\rm\Rnum{\theprvar}}}$\bm\rangle$}
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}}.
+
+}
+%\DeclareDocumentCommand{\Prpvar}{ O{level} O{meta} m }{\prpvar}
+
+
+\DeclareDocumentCommand{\Prp}{ O{null} O{null} }{\setcounter{subproblem}{0}
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf Задача \theproblem
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.}
+
+\DeclareDocumentCommand{\Pr}{ O{null} O{null} }{\setcounter{subproblem}{0}
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf\theproblem
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.}
+
+%\DeclareDocumentCommand{\Prp}{ O{level} O{meta} }
+
+\DeclareDocumentCommand{\Prps}{ O{null} O{null} }{\setcounter{subproblem}{0}
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf Задача $\bm\theproblem^* $
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.
+}
+
+\DeclareDocumentCommand{\Prpd}{ O{null} O{null} }{\setcounter{subproblem}{0}
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf Задача $\bm\theproblem^\dagger$
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.
+}
+
+
+\def\prend{
+	\bigskip
+%	\bigskip
+}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% EOF Problems macros  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%\usepackage{erewhon}
+%\usepackage{heuristica}
+%\usepackage{gentium}
+
+\usepackage[portrait, top=3cm, bottom=1.5cm, left=3cm, right=2cm]{geometry}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\lhead{\fontfamily{fca}\selectfont {Основные алгоритмы 2022} }
+%\lhead{ \bf  {ТРЯП. } Семинар 1 }
+%\chead{\fontfamily{fca}\selectfont {Вариант 1}}
+\rhead{\fontfamily{fca}\selectfont Домашнее задание 1, Павлов Михаил}
+%\rhead{\small 01.09.2016}
+\cfoot{}
+
+\usepackage{titlesec}
+\titleformat{\section}[block]{\Large\bfseries\filcenter {\setcounter{problem}{0}}  }{}{1em}{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Обозначения и операции %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+                                                                    
+\newcommand{\divisible}{\mathop{\raisebox{-2pt}{\vdots}}}           
+\let\Om\Omega
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Shen Macroses %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\w}[1]{{\hbox{\texttt{#1}}}}
+
+
+\begin{document}
+	
+
+
+	\pr Алгоритм\footnote{Алгоритм в этой задаче можно оптимизировать, но это не должно вас смущать. В нашем курсе (как и стандартно в математических курсах) нужно решать сформулированную задачу, поэтому, пожалуйста, удержитесь от порывов оптимизировать алгоритм и оценивать его сложность, если этого не требуется в условии.} получает на вход число $n$ (в десятичной записи) и создаёт массив $A[2,\ldots,n]$, заполненный нулями. Далее алгоритм выполняет следующую процедуру, пока массив не окажется заполнен единицами. Идёт по массиву от $2$ до $n$ пока не встретит первый ноль. Пусть ноль оказался в ячейке с номером $k$. Тогда алгоритм выводит $k$ и заполняет все ячейки с номерами, кратными $k$, единицами: идёт по массиву дальше с шагом один и через каждые $k$ клеток записывает в ячейку единицу.
+
+	\prsub Какую последовательность чисел выводит алгоритм?
+
+	\textbf{Последовательность простых чисел, не превосходящих $n$} 
+
+	\prsub Оцените временную сложность алгоритма.
+
+	\textbf{$\theta(nlogn)$}, \textbf{$n$, поскольку алгоритм ровно 1 раз проходится по массиву, и $logn$, поскольку нам на каждом простом числе надо будет записывать 1 в кратные $k$ ячейки. }
+
+	\prsub Является ли алгоритм полиномиальным?
+
+	\textbf{Является, поскольку $\exists$ полином $p$ степени 2, что алгоритм при любых входных данных будет работать не более чем за (nlogn) }
+	
+\prend
+
+	\pr Докажите, что для произвольной константы $c>0$ функция $g(n) = 1+c+c^2+\ldots+c^n$ есть 
+
+	\begin{itemize}[label=(\alph*)]
+		\item[1] $\Theta(1)$, если $c<1$;
+		\item[2] $\Theta(n)$, если $c=1$;
+		\item[3] $\Theta(c^n)$, если $c>1$.
+	\end{itemize}
+	
+	\textbf{1) В таком случае $g(n) = \frac{1}{1-c} = \Theta(1)$}
+
+	\textbf{2) В этом случае $g(n) = 1 \cdot (n+1) = n + 1 = \Theta(n)$}
+
+	\textbf{3) В этом случае $g(n) > c^n$ и $g(n) < 2 \cdot c^{2n} \Rightarrow g(n) = \Theta(c^n)$}
+
+	\pr Верно ли, что \prsubr $ n = O(n\log n)$? - \textbf{Нет, т.к. $n = O(n)$.} \prsubr $\exists \eps > 0 : n\log n = \Om(n^{1+\eps})$? - \textbf{Нет, т.к. $\forall k > 0 \lim_{n \to \infty}\frac{ln(n)}{n^k} = 0$ (доказывается, к примеру, с помощью правила Лопиталя)}   
+
+	\pr Известно, что $f(n) = O(n^2), g(n) = \Omega(1), g(n) = O(n)$. Положим $$h(n) = \cfrac{f(n)}{g(n)}.$$ 
+
+	\prsub Возможно ли, что \textbf{а)} $h(n) = \Theta(n\log n)$ - \textbf{Да}; \textbf{б)} $h(n) = \Theta(n^3)$ ? -- \textbf{нет}
+
+	\textbf{Доказательство для всех трех случаев: из исходных данных следует, что $O(n) \leq h(n) \leq O(n^2) \Rightarrow \Theta(n) \leq h(n) \leq \Theta(n^2) $ }
+
+	\prsub Приведите наилучшие (из возможных) верхние и нижние оценки на функцию $h(n)$ и приведите пример функций $f(n)$ и $g(n)$ для которых ваши оценки на $h(n)$ достигаются.
+	
+	\textbf{$h(n) = \Omega(n) = O(n^2)$}
+
+	\textbf{examples:}
+
+	\noindent 1) $f(n) = n^2, g(n) = \frac{n + 4}{n - 7}$
+
+	\noindent 2) $f(n) = n^2, g(n) = \frac{n^2 + 1}{n + 2}$
+
+	\pr Дана программа
+
+		\smallskip
+	
+	\begin{figure}[h]
+	
+		{\tt for} (bound = 1; bound < n; bound *= 2 ) \{
+
+		 \hspace{4mm} {\tt for} (i = 0; i < bound; i += 1) \{
+
+		 \hspace{8mm} {\tt for} (j = 0; j < n; j += 2)
+
+		 \hspace{12mm} {\tt печать} (``алгоритм'')
+
+		 \hspace{8mm} {\tt for} (j = 1; j < n; j *= 2)
+
+		 \hspace{12mm} {\tt печать} (``алгоритм'')
+
+		 \hspace{4mm} \}
+
+		\} 
+	\end{figure}	
+
+		\smallskip
+
+		\noindent Пусть $g(n)$ обозначает число слов ``алгоритм'', которые напечатает соответствующая программа. Найдите $\Theta$--асимптотику $g(n)$.
+	
+		\textbf{$g(n) = \Theta(nlogn(n + logn)) = \Theta(n^2logn)$}
+
+		\textbf{Пояснения: входим в цикл с экспоненциальным ростом $\rightarrow logn$. \\ Далее в него вложен цикл с шагом 1 $\rightarrow$ умножаем на $n$. \\ Далее в него вложено 2 цикла, один из которых идет с шагом 2 (отсюда $n$), а другой -- с шагом, умножающимся на 2 (отсюда $logn$). Поскольку циклы идут последовательно, то их сложность просто складывается.}
+
+	\textsl{Во всех задачах ниже мы полагаем, что арифметические операции стоят $O(1)$.}
+
+
+	\Pr[null][Шень \textbf{1.3.1} (а,б,г)]
+	Постройте линейный по времени онлайн-алгоритм, который вычисляет следующие функции или укажите  индуктивные  расширения   для   следующих функций:
+
+	\prsubr среднее  арифметическое  последовательности
+	чисел;
+
+	int avg = 0; -- среднее арифметическое
+
+	int counter = 0; -- количество считанных чисел
+
+	while (cin >> number) \{
+		
+		\hspace{4mm} avg = avg * counter; -- умножаем текущее среднее арифметическое на количество чисел.
+	
+		\hspace{4mm} counter++; -- инкрементируем количество чисел.
+
+		\hspace{4mm} avg = (avg + number) / counter; -- получаем новое среднее арифметическое.
+
+		\hspace{4mm} cout << avg; -- выводим на экран.
+	
+	\}
+
+	\prsubr число элементов последовательности целых чисел, равных
+	её максимальному элементу;
+
+	int max = absolute minimum for int number; -- максимальный элемент
+
+	int counter = 1; -- количество чисел, равных максимальному элементу
+
+	while (cin >> number) \{
+		
+		\hspace{4mm} if (number > max) \{ -- если нашлось число больше максимума, то записываем его в max и делаем счетчик равным 1.
+		
+		\hspace{8mm} max = number;
+
+		\hspace{8mm} counter = 1;
+		
+		\hspace{4mm} \}
+
+		\hspace{4mm} else if (number == max) \{ -- если число равно максимуму, инкрементируем счетчик
+			
+			\hspace{8mm} counter++;
+		
+		\hspace{4mm} \}
+		
+		\hspace{4mm} cout << counter;
+	
+	\}
+
+	\prsubr максимальное число идущих подряд одинаковых элементов;
+
+	int current = nan; -- текущие подряд идущие элементы (или 1 элемент)
+
+	int counter = 1; -- количество подряд идущих одинаковых элементов.
+
+	int max = 1; -- максимальное количество подряд идущих одинаковых элементов.
+
+	while (cin >> number) \{
+
+		\hspace{4mm} if (number == current) counter++; -- если одинаковые числа подряд, то инкрементируем счетчик.
+
+		\hspace{4mm} else \{ -- в противном случае приравниваем счетчик к 1 и обновляем текущий элемент.
+			
+			\hspace{8mm} counter = 1;
+
+			\hspace{8mm} current = number;
+		
+		\hspace{4mm} \}	
+	
+		\hspace{4mm} if (counter > max) max = counter;
+
+		\hspace{4mm} cout << max;
+	
+	\}
+	
+	% \comment{В книге А.~Шеня <<Программирование. Теоремы и задачи>> приведены задачи с решениями. Если в задаче ДЗ указана ссылка на эту книгу, то не нужно техать решение этих задач. Их нужно решить самостоятельно и свериться с решением в книге.}
+	
+
+	\pr Дано три отсортированных по возрастанию массива, внутри каждого массива все элементы различные. Предложите\footnote{Здесь и всюду далее мы требуем не только описание алгоритма, но и доказательство его корректности, а также доказательство оценок на время работы алгоритма.} линейный алгоритм нахождения числа различных элементов в объединении массивов.
+
+	array[p] first;
+	
+	array[q] second;
+
+	array[r] third;
+
+	int counter = p + q + r;
+
+	int min array elem = 0;
+
+	int i = 0, j = 0, k = 0;
+
+	if (first[i] == second[j]) \{
+		
+		\hspace{4mm} counter--;
+
+		\hspace{4mm} j++;
+	
+	\}
+
+	if (first[i] == third[k]) \{
+		
+		\hspace{4mm} counter--;
+
+		\hspace{4mm} k++;
+	
+	\}
+
+	while (хотя бы номера не +inf) \{
+
+		\hspace{4mm} min array elem = min number(first[i], second[j], third[k]);
+		 
+		\hspace{4mm} switch(min array elem) \{
+			
+			\hspace{8mm} case 1:
+
+				\hspace{12mm} if (first[i] == second[j]) counter--;
+
+				\hspace{12mm} if (first[i] == third[k]) counter--;
+
+				\hspace{12mm} if (i == p) first[i] = +inf;
+
+				\hspace{12mm} else i++;
+
+				\hspace{12mm} break;
+		
+			\hspace{8mm} case 2:
+			
+				\hspace{12mm} if (second[j] == first[i]) counter--;
+
+				\hspace{12mm} if (second[j] == third[k]) counter--;
+
+				\hspace{12mm} if (j == q) second[j] = +inf;
+
+				\hspace{12mm} else j++;
+
+				\hspace{12mm} break;
+		
+			\hspace{8mm} case 3:
+			
+				\hspace{12mm} if (third[k] == first[i]) counter--;
+
+				\hspace{12mm} if (third[k] == second[j]) counter--;
+
+				\hspace{12mm} if (k == r) third[k] = +inf;
+
+				\hspace{12mm} else k++;
+
+				\hspace{12mm} break;
+		
+		\hspace{4mm} \}
+	
+	\}
+
+%	\pr  На вход подаётся последовательность чисел $a_1, b_1, a_2, b_2, \ldots, a_n, b_n$. Постройте онлайн-алгоритм, который вычисляет сумму~$\sum\limits_{ i\neq j} a_i\times b_j$.
+
+
+	\Pr[null][Шень \textbf{1.3.4}] Дана последовательность целых чисел $a_1,a_2,\dots,a_n$. Необходимо найти её самую длинную строго возрастающую подпоследовательность. 
+	Предложите \prsubr $O(n^2)$ алгоритм (докажите его корректность и асимптотику); \prsubr $O(n\log n)$ алгоритм.%
+
+	а)
+
+	int[n] sizes -- массив максимальных длин возрастающей подпоследовательности от 0-ого элемента до элемента с номером, равным индексу массива.
+
+	for (int i = 0; i < n; ++i) \{
+		
+	\hspace{4mm} int current = a[i];
+
+	\hspace{4mm} for (int j = i - 1; j >= 0; $--$j) \{
+		
+		\hspace{8mm} if (a[j] < current) \{
+			
+			\hspace{12mm} sizes[i]++; -- заполняем созданный нами массив.
+
+			\hspace{12mm} current = a[j];
+
+		\hspace{8mm} \}
+
+	\hspace{4mm} \}
+	
+	\}
+
+	int max = max index(sizes); -- индекс элемента с максимально возможной возрастающей подпоследовательностью.
+
+	int subseq size = sizes[max]; -- длина искомой подпоследовательности.
+
+	result[subseq size$--$] = a[max]; -- массив с членами искомой подпоследовательности.
+
+	for (int i = max - 1; i >= 0; $--i$) \{
+		
+		\hspace{4mm} if (sizes[i] == subseq size) \{
+			
+			\hspace{8mm} result[subseq size$--$] = a[i];
+		
+		\hspace{4mm} \}
+	
+	\}
+
+	Доказательство корректности тривиально: мы находим номер члена последовательности, на котором завершается максимально возможная возрастающая подпоследовательность,
+	после чего, начиная с конца, запоминаем члены искомой последовательности так, чтобы до i-того члена подпоследовательности можно было построить возрастающую подпоследовательность с максимальной длиной i.
+
+	Асимптотика доказывается наличием двух циклов for с максимальной длиной n, один из которых вложен в другой.
+
+	б)
+
+	int max = 1;
+
+	for (int i = 1; i < n; ++i) \{
+		
+	\hspace{4mm} int j = 0;
+
+	\hspace{4mm} for (; j < max + 1; ++j) \{
+		
+		\hspace{8mm} int q = j + (max - j) / 2;
+
+		\hspace{8mm} if (a[i] <= tmp[q]) max = s;
+
+		\hspace{8mm} else j = q;
+	
+	\hspace{4mm} \}
+	
+	\hspace{4mm} if (j == max) \{
+		
+		\hspace{8mm} max++;
+
+		\hspace{8mm} tmp[max + 1] = a[i];
+	
+	\hspace{4mm} \}
+
+	\hspace{4mm} else tmp[j + 1] = a[i];
+
+	\}
+
+	\prstar На вход подаётся последовательность натуральных чисел $x_1, \ldots x_n$ в которой один из элементов встречается строго больше, чем $\frac{n}{2}$ раз. Постройте алгоритм, который находит этот элемент, и при этом может использовать в качестве внешней памяти только стек (в который можно помещать только элементы последовательности), операции со стеком стоят $O(1)$ времени; в оперативной памяти программа использует $O(1)$ битов памяти и $O(1)$ регистров (в каждом из которых может храниться число $x_i$). 
+
+	Числа $x_i$ идут потоком данных на вход и каждое доступно для считывания только один раз~"--- вернуться  обратиться к прочитанным ранее числам можно, только если сохранить их в памяти.
+
+	int current number = 0;	-- текущее число
+
+	int popular number = 0; -- самое популярное число (которое мы ищем)
+
+	cin >> current number;
+
+	popular number = current number;
+
+	int count = 1; -- количество самых популярных чисел
+
+	while (cin >> current number) \{
+	
+		\hspace{4mm} if (current number == popular number) count++;
+
+		\hspace{4mm} else count$--$;
+
+		\hspace{4mm} if (count == 0) \{
+			
+			\hspace{8mm} popular number = current number;
+
+			\hspace{8mm} count = 1;
+		
+		\hspace{4mm} \}
+
+	\}
+
+	cout << popular number;
+
+	P.S. Сложность по времени -- $\Theta(n)$, т.к. один раз проходим по последовательности. Сложность по памяти -- $O(1)$, т.к. использовали только 3 регистра.
+
+	Более оптимального алгоритма (по асимптотике) не может существовать, поскольку все данные у нас подаются последовательно и нам надо считать минимум $\left\lceil \frac{n}{2} \right\rceil$ элементов для ответа, поэтому сомнений быть не должно.
+
+	Корректность алгоритма вполне тривиальна: если мы считали искомый элемент, то мы добавляем к "счетчику этого элемента" +1 (то есть либо +1, если текущий популярный элемент он и есть, либо -1, если в данный момент времени "самым частым" является другой элемент). Таким образом, поскольку "популярный" элемент встречается чаще чем в половине случаев, то его счетчик будет $\geq 1 \Rightarrow$ именно он и будет выведен на экран.  
+\end{document}
+  

@@ -1,0 +1,392 @@
+\documentclass[12pt]{extreport}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}        % Кодировка входного документа;
+                                    % при необходимости, вместо cp1251
+                                    % можно указать cp866 (Alt-кодировка
+                                    % DOS) или koi8-r.
+
+\usepackage[english,russian]{babel} % Включение русификации, русских и
+                                    % английских стилей и переносов
+%%\usepackage{a4}
+%%\usepackage{moreverb}
+\usepackage{amsmath,amsfonts,amsthm,amssymb,amsbsy,amstext,amscd,amsxtra,multicol}
+\usepackage{indentfirst}
+\usepackage{verbatim}
+\usepackage{tikz} %Рисование автоматов
+\usetikzlibrary{automata,positioning}
+\usepackage{multicol} %Несколько колонок
+\usepackage{graphicx}
+\usepackage[colorlinks,urlcolor=blue]{hyperref}
+\usepackage[stable]{footmisc}
+
+%% \voffset-5mm
+%% \def\baselinestretch{1.44}
+\renewcommand{\theequation}{\arabic{equation}}
+\def\hm#1{#1\nobreak\discretionary{}{\hbox{$#1$}}{}}
+\newtheorem{Lemma}{Лемма}
+\theoremstyle{definiton}
+\newtheorem{Remark}{Замечание}
+%%\newtheorem{Def}{Определение}
+\newtheorem{Claim}{Утверждение}
+\newtheorem{Cor}{Следствие}
+\newtheorem{Theorem}{Теорема}
+\theoremstyle{definition}
+\newtheorem{Example}{Пример}
+\newtheorem*{known}{Теорема}
+\def\proofname{Доказательство}
+\theoremstyle{definition}
+\newtheorem{Def}{Определение}
+
+%% \newenvironment{Example} % имя окружения
+%% {\par\noindent{\bf Пример.}} % команды для \begin
+%% {\hfill$\scriptstyle\qed$} % команды для \end
+
+
+
+
+
+
+%\date{22 июня 2011 г.}
+\let\leq\leqslant
+\let\geq\geqslant
+\def\MT{\mathrm{MT}}
+%Обозначения ``ажуром''
+\def\BB{\mathbb B}
+\def\CC{\mathbb C}
+\def\RR{\mathbb R}
+\def\SS{\mathbb S}
+\def\ZZ{\mathbb Z}
+\def\NN{\mathbb N}
+\def\FF{\mathbb F}
+%греческие буквы
+\let\epsilon\varepsilon
+\let\es\varnothing
+\let\eps\varepsilon
+\let\al\alpha
+\let\sg\sigma
+\let\ga\gamma
+\let\ph\varphi
+\let\om\omega
+\let\ld\lambda
+\let\Ld\Lambda
+\let\vk\varkappa
+\let\Om\Omega
+\def\abstractname{}
+
+\def\R{{\cal R}}
+\def\A{{\cal A}}
+\def\B{{\cal B}}
+\def\C{{\cal C}}
+\def\D{{\cal D}}
+
+%классы сложности
+\def\REG{{\mathsf{REG}}}
+\def\CFL{{\mathsf{CFL}}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Problems macros  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%% Enumerations %%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\Rnum}[1]{\expandafter{\romannumeral #1\relax}}
+\newcommand{\RNum}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
+
+%%%%%%%%%%%%%%%%%%%%% EOF Enumerations %%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{xparse}
+\usepackage{ifthen}
+\usepackage{bm} %%% bf in math mode
+\usepackage{color}
+%\usepackage[usenames,dvipsnames]{xcolor}
+
+\definecolor{Gray555}{HTML}{555555}
+\definecolor{Gray444}{HTML}{444444}
+\definecolor{Gray333}{HTML}{333333}
+
+
+\newcounter{problem}
+\newcounter{uproblem}
+\newcounter{subproblem}
+\newcounter{prvar}
+
+\def\beforPRskip{
+	\bigskip
+	%\vspace*{2ex}
+}
+
+\def\PRSUBskip{
+	\medskip
+}
+
+
+\def\pr{\beforPRskip\noindent\stepcounter{problem}{\bf \theproblem .\;}\setcounter{subproblem}{0}}
+\def\pru{\beforPRskip\noindent\stepcounter{problem}{\bf $\mathbf{\theproblem}^\circ$\!\!.\;}\setcounter{subproblem}{0}}
+\def\prstar{\beforPRskip\noindent\stepcounter{problem}{\bf $\mathbf{\theproblem}^*$\negthickspace.}\setcounter{subproblem}{0}\;}
+\def\prpfrom[#1]{\beforPRskip\noindent\stepcounter{problem}{\bf Задача \theproblem~(№#1 из задания).  }\setcounter{subproblem}{0} }
+\def\prp{\beforPRskip\noindent\stepcounter{problem}{\bf Задача \theproblem .  }\setcounter{subproblem}{0} }
+
+\def\prpvar{\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{1}{\bf Задача \theproblem \;$\langle${\rm\Rnum{\theprvar}}$\rangle$.}\setcounter{subproblem}{0}\;}
+\def\prpv{\beforPRskip\noindent\stepcounter{prvar}{\bf Задача \theproblem \,$\bm\langle$\bracketspace{{\rm\Rnum{\theprvar}}}$\bm\rangle$.  }\setcounter{subproblem}{0} }
+\def\prv{\beforPRskip\noindent\stepcounter{prvar}{\bf \theproblem\,$\bm\langle$\bracketspace{{\rm\Rnum{\theprvar}}}$\bm\rangle$}.\setcounter{subproblem}{0} }
+
+\def\prpstar{\beforPRskip\noindent\stepcounter{problem}{\bf Задача $\bf\theproblem^*$\negthickspace.  }\setcounter{subproblem}{0} }
+\def\prdag{\beforPRskip\noindent\stepcounter{problem}{\bf Задача $\theproblem^{^\dagger}$\negthickspace\,.  }\setcounter{subproblem}{0} }
+\def\upr{\beforPRskip\noindent\stepcounter{uproblem}{\bf Упражнение \theuproblem .  }\setcounter{subproblem}{0} }
+%\def\prp{\vspace{5pt}\stepcounter{problem}{\bf Задача \theproblem .  } }
+%\def\prs{\vspace{5pt}\stepcounter{problem}{\bf \theproblem .*   }
+\def\prsub{\PRSUBskip\noindent\stepcounter{subproblem}{\sf \thesubproblem .} }
+\def\prsubr{\PRSUBskip\noindent\stepcounter{subproblem}{\bf \asbuk{subproblem})}\;}
+\def\prsubstar{\PRSUBskip\noindent\stepcounter{subproblem}{\rm $\thesubproblem^*$\negthickspace.  } }
+\def\prsubrstar{\PRSUBskip\noindent\stepcounter{subproblem}{$\text{\bf \asbuk{subproblem}}^*\mathbf{)}$}\;}
+
+\newcommand{\bracketspace}[1]{\phantom{(}\!\!{#1}\!\!\phantom{)}}
+
+\DeclareDocumentCommand{\Prpvar}{ O{null} O{} }{
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{1}{\bf Задача \theproblem
+% 	\ifthenelse{\equal{#1}{null}}{  }{ {\sf $\bm\langle$\bracketspace{#1}$\bm\rangle$}}
+%	~\!\!(\bracketspace{{\rm\Rnum{\theprvar}}}).  }\setcounter{subproblem}{0}
+%	\;(\bracketspace{{\rm\Rnum{\theprvar}}})}\setcounter{subproblem}{0}
+%
+	\,{\sf $\bm\langle$\bracketspace{{\rm\Rnum{\theprvar}}}$\bm\rangle$}
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}}.
+
+}
+%\DeclareDocumentCommand{\Prpvar}{ O{level} O{meta} m }{\prpvar}
+
+
+\DeclareDocumentCommand{\Prp}{ O{null} O{null} }{\setcounter{subproblem}{0}
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf Задача \theproblem
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.}
+
+\DeclareDocumentCommand{\Pr}{ O{null} O{null} }{\setcounter{subproblem}{0}
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf\theproblem
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.}
+
+%\DeclareDocumentCommand{\Prp}{ O{level} O{meta} }
+
+\DeclareDocumentCommand{\Prps}{ O{null} O{null} }{\setcounter{subproblem}{0}
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf Задача $\bm\theproblem^* $
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.
+}
+
+\DeclareDocumentCommand{\Prpd}{ O{null} O{null} }{\setcounter{subproblem}{0}
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf Задача $\bm\theproblem^\dagger$
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.
+}
+
+
+\def\prend{
+	\bigskip
+%	\bigskip
+}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% EOF Problems macros  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%\usepackage{erewhon}
+%\usepackage{heuristica}
+%\usepackage{gentium}
+
+\usepackage[portrait, top=3cm, bottom=1.5cm, left=3cm, right=2cm]{geometry}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\lhead{\fontfamily{fca}\selectfont {ФПМИ, Основные алгоритмы 2022} }
+%\lhead{ \bf  {ТРЯП. } Семинар 1 }
+%\chead{\fontfamily{fca}\selectfont {Вариант 1}}
+\rhead{\fontfamily{fca}\selectfont Павлов М.А. Домашнее задание 13}
+%\rhead{\small 01.09.2016}
+\cfoot{}
+
+\usepackage{titlesec}
+\titleformat{\section}[block]{\Large\bfseries\filcenter {\setcounter{problem}{0}}  }{}{1em}{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Обозначения и операции %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+                                                                    
+\newcommand{\divisible}{\mathop{\raisebox{-2pt}{\vdots}}}           
+\let\Om\Omega
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Shen Macroses %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\w}[1]{{\hbox{\texttt{#1}}}}
+
+
+\usepackage{tikz} %Рисование автоматов
+\usetikzlibrary{automata,positioning}
+
+\begin{document}
+	
+
+\pr Найти максимальный поток и минимальный разрез, используя алгоритм Эдмондса-Карпа.
+
+\begin{center}
+	
+\begin{tikzpicture}[scale=1.4, every node/.style={transform shape}, >=stealth, shorten >=1pt,node distance=2cm,on grid,auto,initial text=]
+	%\tikzset{every edge/.append style={}}
+	%\tikzset{every edge/.append style={}}
+  %\draw[help lines] (0,0) grid (3,2);
+  \node[state, inner sep=1pt,minimum size=0pt]  (s) 					 {$s$};
+  \node[state,inner sep=1pt,minimum size=0pt]  (a) [ above right = 1.5cm of s ] {$a$};
+  \node[state,inner sep=1pt,minimum size=0pt]  (b) [ right = of a] {$b$};
+  \node[state,inner sep=1pt,minimum size=0pt]	(c) [ below right = 1.5cm of s ] {$c$};
+  \node[state, inner sep=1pt,minimum size=0pt]  (d) [ right = of c] {$d$};
+  \node[state, inner sep=1pt,minimum size=0pt]  (t) [ below right  = 1.5cm of b] {$t$};
+
+  \path[->]
+		(s)	edge []		node	{\tiny 16} (a)
+			edge [anchor=10, pos=0.5]		node 	{\tiny 10}	 (c)
+			%edge [anchor=-10, pos=0.9]		node	{3}	(c)
+		(a)	edge [ pos=0.5]		node	{\tiny 23}	(b)
+			%edge [ pos=0.9]		node	{\tiny 8}	(c)
+			edge [anchor=10, pos=0.5 ]		node	{\tiny 5}	(d)
+		
+		(b)	edge 		node	{\tiny $26$}	(t) %[anchor=-11, pos=0.8]					
+			edge 		node	{\tiny $17$}	(d) 
+		(c)	edge		node	{\tiny $\infty$}	(d)
+			edge [pos=0.5]		node	{\tiny 8}	(a)
+		(d) %edge 		node	{\tiny $17$}	(b)  		
+			%edge [pos=0.5]		node	{\tiny $\infty$}		(a)
+			edge [anchor=120, pos=0.5]		node	{\tiny $6$}	(t);  		
+ \end{tikzpicture}
+\end{center}
+
+Первый шаг
+
+\begin{center}
+
+	\begin{tikzpicture}[scale=1.4, every node/.style={transform shape}, >=stealth, shorten >=1pt,node distance=2cm,on grid,auto,initial text=]
+	%\tikzset{every edge/.append style={}}
+	%\tikzset{every edge/.append style={}}
+	%\draw[help lines] (0,0) grid (3,2);
+	\node[state, inner sep=1pt,minimum size=0pt]  (s) 					 {$s$};
+	\node[state,inner sep=1pt,minimum size=0pt]  (a) [ above right = 1.5cm of s ] {$a$};
+	\node[state,inner sep=1pt,minimum size=0pt]  (b) [ right = of a] {$b$};
+	\node[state,inner sep=1pt,minimum size=0pt]	(c) [ below right = 1.5cm of s ] {$c$};
+	\node[state, inner sep=1pt,minimum size=0pt]  (d) [ right = of c] {$d$};
+	\node[state, inner sep=1pt,minimum size=0pt]  (t) [ below right  = 1.5cm of b] {$t$};
+
+	\path[->]
+		(s)	edge []		node	{\tiny $\frac{0}{16}$} (a)
+			edge [anchor=10, pos=0.5]		node 	{\tiny $\frac{4}{6}$}	 (c)
+	%edge [anchor=-10, pos=0.9]		node	{3}	(c)
+	(a)	edge [ pos=0.5]		node	{\tiny $\frac{7}{16}$}	(b)
+	%edge [ pos=0.9]		node	{\tiny 8}	(c)
+	edge [anchor=10, pos=0.5 ]		node	{\tiny 5}	(d)
+
+	(b)	edge 		node	{\tiny $\frac{10}{16}$}	(t) %[anchor=-11, pos=0.8]
+	edge 		node	{\tiny $17$}	(d)
+	(c)	edge		node	{\tiny $\frac{\infty}{6}$}	(d)
+	edge [pos=0.5]		node	{\tiny 8}	(a)
+	(d) %edge 		node	{\tiny $17$}	(b)
+	%edge [pos=0.5]		node	{\tiny $\infty$}		(a)
+	edge [anchor=120, pos=0.5]		node	{\tiny $\frac{0}{6}$}	(t);
+	\end{tikzpicture}
+\end{center}
+
+Второй шаг
+
+\begin{center}
+
+	\begin{tikzpicture}[scale=1.4, every node/.style={transform shape}, >=stealth, shorten >=1pt,node distance=2cm,on grid,auto,initial text=]
+	%\tikzset{every edge/.append style={}}
+	%\tikzset{every edge/.append style={}}
+	%\draw[help lines] (0,0) grid (3,2);
+	\node[state, inner sep=1pt,minimum size=0pt]  (s) 					 {$s$};
+	\node[state,inner sep=1pt,minimum size=0pt]  (a) [ above right = 1.5cm of s ] {$a$};
+	\node[state,inner sep=1pt,minimum size=0pt]  (b) [ right = of a] {$b$};
+	\node[state,inner sep=1pt,minimum size=0pt]	(c) [ below right = 1.5cm of s ] {$c$};
+	\node[state, inner sep=1pt,minimum size=0pt]  (d) [ right = of c] {$d$};
+	\node[state, inner sep=1pt,minimum size=0pt]  (t) [ below right  = 1.5cm of b] {$t$};
+
+	\path[->]
+		(s)	edge []		node	{\tiny $\frac{0}{16}$} (a)
+			edge [anchor=10, pos=0.5]		node 	{\tiny $\frac{0}{10}$}	 (c)
+	%edge [anchor=-10, pos=0.9]		node	{3}	(c)
+	(a)	edge [ pos=0.5]		node	{\tiny $\frac{3}{20}$}	(b)
+	%edge [ pos=0.9]		node	{\tiny 8}	(c)
+	edge [anchor=10, pos=0.5 ]		node	{\tiny 5}	(d)
+
+	(b)	edge 		node	{\tiny $\frac{6}{20}$}	(t) %[anchor=-11, pos=0.8]
+	edge 		node	{\tiny $17$}	(d)
+	(c)	edge		node	{\tiny $\frac{\infty}{6}$}	(d)
+	edge [pos=0.5]		node	{\tiny $\frac{4}{4}$}	(a)
+	(d) %edge 		node	{\tiny $17$}	(b)
+	%edge [pos=0.5]		node	{\tiny $\infty$}		(a)
+	edge [anchor=120, pos=0.5]		node	{\tiny $\frac{0}{6}$}	(t);
+	\end{tikzpicture}
+\end{center}
+
+Ура мы получили максимальный поток, равный \textbf{26}.
+
+Ну а минимальный разрез находим с помощью метода пристального взгляда на рисунок. Это набор ребер $\{(s, a), (s, c)\}$.
+
+\pr Пусть кто-то утверждает, что нашёл максимальный поток в некоторой сети...
+
+	Есть алгоритм, работающий за $O(1)$. Мы можем попросить этого человека доказать истинность его высказывания. В таком случае он все сделает за нас.
+	Однако, этот алгоритм нам не подходит, т.к. у него не линейная сложность.
+
+	Вспоминаем Форда-Фалкерсона, с которым мы познакомились еще на первом семестре на АЛКТГ.
+	По его словам, при максимальном потоке нельзя найти увеличивающие пути. Это справедливо.
+
+	Ну тогда нам просто надо проверить, можем ли мы найти какой-нибудь путь ненулевого веса из $s$ в $t$.
+	Для этого достаточно будет пройтись по вершинам графа, начиная с вершины $s$. Сложность обхода графа, очевидно, будет зависеть
+	от числа вершин и числа ребер, т.е. $O(|V| + |E|)$. То есть алгоритм имеет линейную сложность, о чем нас и просят в условии.
+
+	Корректность: очевидна из алгоритма Форда-Фалкерсона.
+
+\Pr[null][7.21 ДПВ] Ребро в сети называется критическим, если...
+
+	1) Сначала строим рандомный кратчайший путь от $s$ до $t$ -- мы это умеем делать за $O(|V| + |E|)$.
+
+	2) Далее в этом пути выбираем ребро с минимальным весом. Пусть это будет ребро $(a, b)$.
+
+	3) Строим все возможные пути из $a$ в $b$ НЕ через ребро $(a, b)$.
+
+	4) Если сумма всех путей из $a$ в $b$ (считая ребро $(a, b)$) меньше веса 2-ого по минимальности ребра, то одно из этих ребер (к примеру, $(a, b)$) является критическим.
+
+	Иначе берем второе по минимальности ребро и выполняем те же действия для него. (потом, возможно, берем 3-е по минимальности, 4-ое и т.д.)
+
+	Сложность алгоритма -- $O(|V| + |E|)$, т.к. в худшем случае нам придется пройти по всем вершинам и по всем ребрам.
+
+	Оптимальность: поскольку нам в любом случае придется построить хотя бы один путь из $s$ в $t$, то быстрее чем за $O(|V| + |E|)$ мы справиться не сможем.
+
+	Корректность: действительно. По сути этот алгоритм строит небольшой подпоток исходного потока и ищем в нем насыщенное ребро.
+	Если какое-то ребро будет насыщенным в этом подпотоке, то оно будет насыщенным и в исходном потоке.
+
+\Pr[null][7.18 ДПВ] Известно много вариаций задачи о максимальном потоке...
+
+\prsub Имеется несколько истоков и несколько стоков, и нам нужно максимизировать общий поток из всех истоков во все стоки.
+
+	Просто склеиваем между собой все истоки и все стоки следующим образом:
+
+	1) Все $s_1, s_2...S_n$ становятся $s$ и все $t_1, t_2...t_m$ становятся $t$.
+
+	2) Если $\exists! i :$ ребро $(s_i, a)$, то появляется ребро $(s, a)$ с тем же весом.
+
+	3) Если $\exists i_1, i_2...i_k : \forall 1 \leq p, q \leq k \rightarrow i_p \neq i_q, p \neq q$ и ребра $(s_{i_p}, a), (s_{i_q}, a)$, то ребро $(s, a)$ будет иметь вес как сумму весов всех перечисленных ранее ребер.
+
+	4) Со стоками аналогично
+
+\prsub Каждая вершина также имеет пропускную способность –– максимальный поток, который может в неё входить.
+
+	1) Каждую вершину $p$ делим на $p_1, p_2$, соединяя ребром, равным весу вершины $p$. При этом в вершину $p_1$ входят все ребра,
+	которые входили раньше в $p$, а из $p_2$ выходят все ребра, которые выходили раньше из $p$.
+
+\bigskip
+
+\noindent\textbf{Определение.} Пусть $G(V,E)$~"--- ориентированный ациклический граф (DAG). Множество вершинно-непересекающихся путей $P$ графа $G$ называется его \emph{покрытием путями}, если каждая вершина множества $V$ входит в некоторый путь из $P$. Отметим, что пути могут соединиять как любую пару вершин, так и состоять из одной вершины. Множество $P$ называется \emph{минимальным покрытием путями}, если у $G$ не существует покрытия путями меньшего размера, т.е. $|P|$ минимально.
+
+\prstar Постройте эффективный алгоритм, который получив на вход DAG $G$ находит его (некоторое) минимальное покрытие путями.
+\end{document}
+  

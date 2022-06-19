@@ -1,0 +1,315 @@
+\documentclass[12pt]{extreport}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}        % Кодировка входного документа;
+                                    % при необходимости, вместо cp1251
+                                    % можно указать cp866 (Alt-кодировка
+                                    % DOS) или koi8-r.
+
+\usepackage[english,russian]{babel} % Включение русификации, русских и
+                                    % английских стилей и переносов
+%%\usepackage{a4}
+%%\usepackage{moreverb}
+\usepackage{amsmath,amsfonts,amsthm,amssymb,amsbsy,amstext,amscd,amsxtra,multicol}
+\usepackage{indentfirst}
+\usepackage{verbatim}
+\usepackage{tikz} %Рисование автоматов
+\usetikzlibrary{automata,positioning}
+\usepackage{multicol} %Несколько колонок
+\usepackage{graphicx}
+\usepackage[colorlinks,urlcolor=blue]{hyperref}
+\usepackage[stable]{footmisc}
+
+%% \voffset-5mm
+%% \def\baselinestretch{1.44}
+\renewcommand{\theequation}{\arabic{equation}}
+\def\hm#1{#1\nobreak\discretionary{}{\hbox{$#1$}}{}}
+\newtheorem{Lemma}{Лемма}
+\theoremstyle{definiton}
+\newtheorem{Remark}{Замечание}
+%%\newtheorem{Def}{Определение}
+\newtheorem{Claim}{Утверждение}
+\newtheorem{Cor}{Следствие}
+\newtheorem{Theorem}{Теорема}
+\theoremstyle{definition}
+\newtheorem{Example}{Пример}
+\newtheorem*{known}{Теорема}
+\def\proofname{Доказательство}
+\theoremstyle{definition}
+\newtheorem{Def}{Определение}
+
+%% \newenvironment{Example} % имя окружения
+%% {\par\noindent{\bf Пример.}} % команды для \begin
+%% {\hfill$\scriptstyle\qed$} % команды для \end
+
+
+
+
+
+
+%\date{22 июня 2011 г.}
+\let\leq\leqslant
+\let\geq\geqslant
+\def\MT{\mathrm{MT}}
+%Обозначения ``ажуром''
+\def\BB{\mathbb B}
+\def\CC{\mathbb C}
+\def\RR{\mathbb R}
+\def\SS{\mathbb S}
+\def\ZZ{\mathbb Z}
+\def\NN{\mathbb N}
+\def\FF{\mathbb F}
+%греческие буквы
+\let\epsilon\varepsilon
+\let\es\varnothing
+\let\eps\varepsilon
+\let\al\alpha
+\let\sg\sigma
+\let\ga\gamma
+\let\ph\varphi
+\let\om\omega
+\let\ld\lambda
+\let\Ld\Lambda
+\let\vk\varkappa
+\let\Om\Omega
+\def\abstractname{}
+
+\def\R{{\cal R}}
+\def\A{{\cal A}}
+\def\B{{\cal B}}
+\def\C{{\cal C}}
+\def\D{{\cal D}}
+
+%классы сложности
+\def\REG{{\mathsf{REG}}}
+\def\CFL{{\mathsf{CFL}}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Problems macros  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%% Enumerations %%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\Rnum}[1]{\expandafter{\romannumeral #1\relax}}
+\newcommand{\RNum}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
+
+%%%%%%%%%%%%%%%%%%%%% EOF Enumerations %%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{xparse}
+\usepackage{ifthen}
+\usepackage{bm} %%% bf in math mode
+\usepackage{color}
+%\usepackage[usenames,dvipsnames]{xcolor}
+
+\definecolor{Gray555}{HTML}{555555}
+\definecolor{Gray444}{HTML}{444444}
+\definecolor{Gray333}{HTML}{333333}
+
+
+\newcounter{problem}
+\newcounter{uproblem}
+\newcounter{subproblem}
+\newcounter{prvar}
+
+\def\beforPRskip{
+	\bigskip
+	%\vspace*{2ex}
+}
+
+\def\PRSUBskip{
+	\medskip
+}
+
+
+\def\pr{\beforPRskip\noindent\stepcounter{problem}{\bf \theproblem .\;}\setcounter{subproblem}{0}}
+\def\pru{\beforPRskip\noindent\stepcounter{problem}{\bf $\mathbf{\theproblem}^\circ$\!\!.\;}\setcounter{subproblem}{0}}
+\def\prstar{\beforPRskip\noindent\stepcounter{problem}{\bf $\mathbf{\theproblem}^*$\negthickspace.}\setcounter{subproblem}{0}\;}
+\def\prpfrom[#1]{\beforPRskip\noindent\stepcounter{problem}{\bf Задача \theproblem~(№#1 из задания).  }\setcounter{subproblem}{0} }
+\def\prp{\beforPRskip\noindent\stepcounter{problem}{\bf Задача \theproblem .  }\setcounter{subproblem}{0} }
+
+\def\prpvar{\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{1}{\bf Задача \theproblem \;$\langle${\rm\Rnum{\theprvar}}$\rangle$.}\setcounter{subproblem}{0}\;}
+\def\prpv{\beforPRskip\noindent\stepcounter{prvar}{\bf Задача \theproblem \,$\bm\langle$\bracketspace{{\rm\Rnum{\theprvar}}}$\bm\rangle$.  }\setcounter{subproblem}{0} }
+\def\prv{\beforPRskip\noindent\stepcounter{prvar}{\bf \theproblem\,$\bm\langle$\bracketspace{{\rm\Rnum{\theprvar}}}$\bm\rangle$}.\setcounter{subproblem}{0} }
+
+\def\prpstar{\beforPRskip\noindent\stepcounter{problem}{\bf Задача $\bf\theproblem^*$\negthickspace.  }\setcounter{subproblem}{0} }
+\def\prdag{\beforPRskip\noindent\stepcounter{problem}{\bf Задача $\theproblem^{^\dagger}$\negthickspace\,.  }\setcounter{subproblem}{0} }
+\def\upr{\beforPRskip\noindent\stepcounter{uproblem}{\bf Упражнение \theuproblem .  }\setcounter{subproblem}{0} }
+%\def\prp{\vspace{5pt}\stepcounter{problem}{\bf Задача \theproblem .  } }
+%\def\prs{\vspace{5pt}\stepcounter{problem}{\bf \theproblem .*   }
+\def\prsub{\PRSUBskip\noindent\stepcounter{subproblem}{\sf \thesubproblem .} }
+\def\prsubr{\PRSUBskip\noindent\stepcounter{subproblem}{\bf \asbuk{subproblem})}\;}
+\def\prsubstar{\PRSUBskip\noindent\stepcounter{subproblem}{\rm $\thesubproblem^*$\negthickspace.  } }
+\def\prsubrstar{\PRSUBskip\noindent\stepcounter{subproblem}{$\text{\bf \asbuk{subproblem}}^*\mathbf{)}$}\;}
+
+\newcommand{\bracketspace}[1]{\phantom{(}\!\!{#1}\!\!\phantom{)}}
+
+\DeclareDocumentCommand{\Prpvar}{ O{null} O{} }{
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{1}{\bf Задача \theproblem
+% 	\ifthenelse{\equal{#1}{null}}{  }{ {\sf $\bm\langle$\bracketspace{#1}$\bm\rangle$}}
+%	~\!\!(\bracketspace{{\rm\Rnum{\theprvar}}}).  }\setcounter{subproblem}{0}
+%	\;(\bracketspace{{\rm\Rnum{\theprvar}}})}\setcounter{subproblem}{0}
+%
+	\,{\sf $\bm\langle$\bracketspace{{\rm\Rnum{\theprvar}}}$\bm\rangle$}
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}}.
+
+}
+%\DeclareDocumentCommand{\Prpvar}{ O{level} O{meta} m }{\prpvar}
+
+
+\DeclareDocumentCommand{\Prp}{ O{null} O{null} }{\setcounter{subproblem}{0}
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf Задача \theproblem
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.}
+
+\DeclareDocumentCommand{\Pr}{ O{null} O{null} }{\setcounter{subproblem}{0}
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf\theproblem
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.}
+
+%\DeclareDocumentCommand{\Prp}{ O{level} O{meta} }
+
+\DeclareDocumentCommand{\Prps}{ O{null} O{null} }{\setcounter{subproblem}{0}
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf Задача $\bm\theproblem^* $
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.
+}
+
+\DeclareDocumentCommand{\Prpd}{ O{null} O{null} }{\setcounter{subproblem}{0}
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf Задача $\bm\theproblem^\dagger$
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.
+}
+
+
+\def\prend{
+	\bigskip
+%	\bigskip
+}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% EOF Problems macros  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%\usepackage{erewhon}
+%\usepackage{heuristica}
+%\usepackage{gentium}
+
+\usepackage[portrait, top=3cm, bottom=1.5cm, left=3cm, right=2cm]{geometry}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\lhead{\fontfamily{fca}\selectfont {Павлов М. А. Основные алгоритмы 2022} }
+%\lhead{ \bf  {ТРЯП. } Семинар 1 }
+%\chead{\fontfamily{fca}\selectfont {Вариант 1}}
+\rhead{\fontfamily{fca}\selectfont Домашнее задание 8}
+%\rhead{\small 01.09.2016}
+\cfoot{}
+
+\usepackage{titlesec}
+\titleformat{\section}[block]{\Large\bfseries\filcenter {\setcounter{problem}{0}}  }{}{1em}{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Обозначения и операции %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+                                                                    
+\newcommand{\divisible}{\mathop{\raisebox{-2pt}{\vdots}}}           
+\let\Om\Omega
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Shen Macroses %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\w}[1]{{\hbox{\texttt{#1}}}}
+
+\newcommand{\Prob}{\mathop{\mathrm{P}}}
+\newcommand{\Ex}{\mathop{\mathrm{E}}}
+
+\usepackage[linesnumbered]{algorithm2e}   
+
+\begin{document}
+	
+
+\pr Дано $n$ слов длины $k$, состоящих из \ldots
+
+	Отсортируем слова по разрядам, используя сортировку подсчетом.
+
+	Сложность сортировки подсчетом -- $\Theta(n)$. В текущем случае получается, что в процессе сортировки мы пройдемся по $k$ разрядам.
+
+	В результате получим сложность алгоритма $\Theta(nk)$ -- вроде эффективно\ldots.
+
+\pr Пусть числовой массив\ldots
+	По сути здесь можно просто применить немного модифицированный алгоритм бинарного поиска, а именно на каждом шаге спрашивать про два соседних элемента.
+
+	Действительно, если мы узнаем значения двух соседних элементов, то мы сможем однозначно сказать, справа или слева от них находится максимальный элемент.
+
+	То есть этот алгоритм будет иметь примерно в два раза больше ходов, чем бинарный поиск, т.е. по ассимптотике он не уступает и работает за $O(logb)$ ходов.
+
+\pr Имеется $n$ монет, среди которых одна фальшивая\ldots
+
+	1. Разбиваем все монеты на 3 равные части (если число монет не делится на 3, то количество взвешиваний увеличится на константу, что допустимо в нашем алгоритме, так что с этого момента будем считать, что монеты на 3 кучки у нас делятся всегда вплоть до окончания этого номера.)
+
+	2. Далее взвешиваем первые 2 части и забираем себе ту, которая легче. Если первые 2 части оказались равны по массе, то там нет фальшивой монеты, т.е. фальшивка в 3-ей части монет -- в этом случае берем ее.
+
+	3. Берем все монетки из бывранной кучи и повторяем те же действия.
+
+	В результате каждого шага количество рассматриваемых монет уменьшается в 3 раза (+константа). Значит, алгоритм справится с поиском минимальной монеты за $\Theta (log_3n + c)$.
+
+\pr Докажите, что \ldots необходимо $\log_3 n + c$ взвешиваний.
+
+	На каждом шаге после получения результатов взвешивания мы можем сделать соответствующие выводы и понять, что фальшивая монета находится либо среди одной из двух кучек, либо среди монет, не участвоваших во взвешивании.
+	То есть если составить дерево запросов, то на каждом уровне будет ровно три разветвления, откуда следует, что число листьев равно $3^h$, где $h$ -- высота дерева.
+
+	Листья должны перечислить все возможные варианты, т.е. $3^h \geq n \Rightarrow h \geq log_3 n$.
+
+	Минимальное количество запросов как раз ровно высоте дерева. В идеале, когда количество монет -- степень тройки, мы имеем, что минимальная высота равна $log_3 n$, т.е. минимальное число запросов равно $log_3 n$.
+
+\pr Даны два отсортированных массива длины $n$ \ldots
+
+\prend
+
+	1) Поскольку массивы уже отсортированы, то за $O(1)$ находим их медианы и сравниваем между собой. Для определенности будем считать, что мы получили $M_1 > M_2$, где $M_1$ и $M_2$ -- медианы первого и второго массивов соответственно.
+
+	2) Т.к. $M_1 > M_2$, то можем считать, что все элементы второй половины первого массива больше медианы, а все элементы первой половины второго массива меньше медианы, поэтому от этих "кусков" мы можем избавиться. Таким образом, суммарное количество элементов уменьшилось вдвое.
+
+	3) Повторяем те же действия (уменьшая на каждом шаге кол-во рассматриваемых элементов в 2 раза), пока не останется 2 массива единичной длины.
+
+	4) Сравниваем оставшуюся пару элементов и узнаем положение медианы.
+
+	Таким образом, количество сравнений равно $\lceil log_2n \rceil$. Ассимптотика $O(\log n)$
+
+\pr Для каждой сортировки из списка определите, является ли она устойчивой и in-place:
+\prsubr  QuickSort; \prsubrinline MergeSort; \prsubrinline InsertionSort; \prsubrinline HeapSort.
+
+	Устойчивыми сортировками среди перечисленных являются: MergeSort и InsertionSort
+
+	in-place сортировки: QuickSort, InsertionSort, HeapSort
+
+	Ответы следуют непосредственно из описания алгоритмов, а как сказал Александр Александрович:
+
+\textbf{ ~ Формальное определение алгоритмов можно найти в книге Кормена и др}.
+
+\pr Определите, что число является значением данного многочлена\ldots
+
+	Здесь, вероятно, стоит применить что-то похожее на бинарный поиск, а именно сначала вместо $x$ подставить $[\frac{y}{2}]$. Если значение многочлена при этом больше $y$, то вместо $x$ подставляем $\frac{y}{4}$, если меньше -- $\frac{3y}{4}$, а если равен -- то мы победили (число является значением многочлена).
+
+	И продолжаем наш "бинарный поиск", не забывая, что $x$ -- натуральное число. За $\lceil log_2n \rceil$ шагов мы сможем понять, является ли наш игрек значением многочлена.
+
+	Также стоит учесть, что значение многочлена вычисляется не бесплатно! Чтобы вместо каждого икса подставить какое-то число и посчитать значение, требуется $O(n)$ действий. То есть каждый шаг нашего алгоритма имеет сложность $O(n)$.
+
+	Таким образом, итоговая сложность у нас получается $O(n \log n)$.
+
+\pr Ваш лектор по алгоритмам\ldots
+
+	З.Ы. баянистая задача из олимпиадной математики примерно 8-ого класса.
+
+	Допустим, нам необходимо $n$ бросков, чтобы определить прочность.
+
+	В таком случае мы бросаем 1-ый шарик до $n$ раз. Если на $i$-том броске он разбивается, то на второй шарик остается $n-i$ бросков.
+
+	В итоге получается сумма $100 \leq \sum_0^{n-1} (n - i) \Rightarrow n = 14$ -- \textbf{минимальное число бросков, при котором мы гарантированно узнаем прочность}.
+
+	Если же говорить о минимально возможном количестве бросков для нахождения прочность, то получится, что мы сможем найти его, если оба шарика разобьются (к примеру, первый разбился на 14-ом этаже, а второй на первом).
+	То есть число бросков в этом случае будет равно 2.
+
+\end{document}
+  

@@ -1,0 +1,360 @@
+\documentclass[12pt]{extreport}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}        % Кодировка входного документа;
+                                    % при необходимости, вместо cp1251
+                                    % можно указать cp866 (Alt-кодировка
+                                    % DOS) или koi8-r.
+
+\usepackage[english,russian]{babel} % Включение русификации, русских и
+                                    % английских стилей и переносов
+%%\usepackage{a4}
+%%\usepackage{moreverb}
+\usepackage{amsmath,amsfonts,amsthm,amssymb,amsbsy,amstext,amscd,amsxtra,multicol}
+\usepackage{indentfirst}
+\usepackage{verbatim}
+\usepackage{tikz} %Рисование автоматов
+\usetikzlibrary{automata,positioning}
+\usepackage{multicol} %Несколько колонок
+\usepackage{graphicx}
+\usepackage[colorlinks,urlcolor=blue]{hyperref}
+\usepackage[stable]{footmisc}
+
+%% \voffset-5mm
+%% \def\baselinestretch{1.44}
+\renewcommand{\theequation}{\arabic{equation}}
+\def\hm#1{#1\nobreak\discretionary{}{\hbox{$#1$}}{}}
+\newtheorem{Lemma}{Лемма}
+\theoremstyle{definiton}
+\newtheorem{Remark}{Замечание}
+%%\newtheorem{Def}{Определение}
+\newtheorem{Claim}{Утверждение}
+\newtheorem{Cor}{Следствие}
+\newtheorem{Theorem}{Теорема}
+\theoremstyle{definition}
+\newtheorem{Example}{Пример}
+\newtheorem*{known}{Теорема}
+\def\proofname{Доказательство}
+\theoremstyle{definition}
+\newtheorem{Def}{Определение}
+
+%% \newenvironment{Example} % имя окружения
+%% {\par\noindent{\bf Пример.}} % команды для \begin
+%% {\hfill$\scriptstyle\qed$} % команды для \end
+
+
+
+
+
+
+%\date{22 июня 2011 г.}
+\let\leq\leqslant
+\let\geq\geqslant
+\def\MT{\mathrm{MT}}
+%Обозначения ``ажуром''
+\def\BB{\mathbb B}
+\def\CC{\mathbb C}
+\def\RR{\mathbb R}
+\def\SS{\mathbb S}
+\def\ZZ{\mathbb Z}
+\def\NN{\mathbb N}
+\def\FF{\mathbb F}
+%греческие буквы
+\let\epsilon\varepsilon
+\let\es\varnothing
+\let\eps\varepsilon
+\let\al\alpha
+\let\sg\sigma
+\let\ga\gamma
+\let\ph\varphi
+\let\om\omega
+\let\ld\lambda
+\let\Ld\Lambda
+\let\vk\varkappa
+\let\Om\Omega
+\def\abstractname{}
+
+\def\R{{\cal R}}
+\def\A{{\cal A}}
+\def\B{{\cal B}}
+\def\C{{\cal C}}
+\def\D{{\cal D}}
+
+%классы сложности
+\def\REG{{\mathsf{REG}}}
+\def\CFL{{\mathsf{CFL}}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Problems macros  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%% Enumerations %%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\Rnum}[1]{\expandafter{\romannumeral #1\relax}}
+\newcommand{\RNum}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
+
+%%%%%%%%%%%%%%%%%%%%% EOF Enumerations %%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{xparse}
+\usepackage{ifthen}
+\usepackage{bm} %%% bf in math mode
+\usepackage{color}
+%\usepackage[usenames,dvipsnames]{xcolor}
+
+\definecolor{Gray555}{HTML}{555555}
+\definecolor{Gray444}{HTML}{444444}
+\definecolor{Gray333}{HTML}{333333}
+
+
+\newcounter{problem}
+\newcounter{uproblem}
+\newcounter{subproblem}
+\newcounter{prvar}
+
+\def\beforPRskip{
+	\bigskip
+	%\vspace*{2ex}
+}
+
+\def\PRSUBskip{
+	\medskip
+}
+
+
+\def\pr{\beforPRskip\noindent\stepcounter{problem}{\bf \theproblem .\;}\setcounter{subproblem}{0}}
+\def\pru{\beforPRskip\noindent\stepcounter{problem}{\bf $\mathbf{\theproblem}^\circ$\!\!.\;}\setcounter{subproblem}{0}}
+\def\prstar{\beforPRskip\noindent\stepcounter{problem}{\bf $\mathbf{\theproblem}^*$\negthickspace.}\setcounter{subproblem}{0}\;}
+\def\prpfrom[#1]{\beforPRskip\noindent\stepcounter{problem}{\bf Задача \theproblem~(№#1 из задания).  }\setcounter{subproblem}{0} }
+\def\prp{\beforPRskip\noindent\stepcounter{problem}{\bf Задача \theproblem .  }\setcounter{subproblem}{0} }
+
+\def\prpvar{\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{1}{\bf Задача \theproblem \;$\langle${\rm\Rnum{\theprvar}}$\rangle$.}\setcounter{subproblem}{0}\;}
+\def\prpv{\beforPRskip\noindent\stepcounter{prvar}{\bf Задача \theproblem \,$\bm\langle$\bracketspace{{\rm\Rnum{\theprvar}}}$\bm\rangle$.  }\setcounter{subproblem}{0} }
+\def\prv{\beforPRskip\noindent\stepcounter{prvar}{\bf \theproblem\,$\bm\langle$\bracketspace{{\rm\Rnum{\theprvar}}}$\bm\rangle$}.\setcounter{subproblem}{0} }
+
+\def\prpstar{\beforPRskip\noindent\stepcounter{problem}{\bf Задача $\bf\theproblem^*$\negthickspace.  }\setcounter{subproblem}{0} }
+\def\prdag{\beforPRskip\noindent\stepcounter{problem}{\bf Задача $\theproblem^{^\dagger}$\negthickspace\,.  }\setcounter{subproblem}{0} }
+\def\upr{\beforPRskip\noindent\stepcounter{uproblem}{\bf Упражнение \theuproblem .  }\setcounter{subproblem}{0} }
+%\def\prp{\vspace{5pt}\stepcounter{problem}{\bf Задача \theproblem .  } }
+%\def\prs{\vspace{5pt}\stepcounter{problem}{\bf \theproblem .*   }
+\def\prsub{\PRSUBskip\noindent\stepcounter{subproblem}{\sf \thesubproblem .} }
+\def\prsubr{\PRSUBskip\noindent\stepcounter{subproblem}{\bf \asbuk{subproblem})}\;}
+\def\prsubstar{\PRSUBskip\noindent\stepcounter{subproblem}{\rm $\thesubproblem^*$\negthickspace.  } }
+\def\prsubrstar{\PRSUBskip\noindent\stepcounter{subproblem}{$\text{\bf \asbuk{subproblem}}^*\mathbf{)}$}\;}
+
+\newcommand{\bracketspace}[1]{\phantom{(}\!\!{#1}\!\!\phantom{)}}
+
+\DeclareDocumentCommand{\Prpvar}{ O{null} O{} }{
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{1}{\bf Задача \theproblem
+% 	\ifthenelse{\equal{#1}{null}}{  }{ {\sf $\bm\langle$\bracketspace{#1}$\bm\rangle$}}
+%	~\!\!(\bracketspace{{\rm\Rnum{\theprvar}}}).  }\setcounter{subproblem}{0}
+%	\;(\bracketspace{{\rm\Rnum{\theprvar}}})}\setcounter{subproblem}{0}
+%
+	\,{\sf $\bm\langle$\bracketspace{{\rm\Rnum{\theprvar}}}$\bm\rangle$}
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}}.
+
+}
+%\DeclareDocumentCommand{\Prpvar}{ O{level} O{meta} m }{\prpvar}
+
+
+\DeclareDocumentCommand{\Prp}{ O{null} O{null} }{\setcounter{subproblem}{0}
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf Задача \theproblem
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.}
+
+\DeclareDocumentCommand{\Pr}{ O{null} O{null} }{\setcounter{subproblem}{0}
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf\theproblem
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.}
+
+%\DeclareDocumentCommand{\Prp}{ O{level} O{meta} }
+
+\DeclareDocumentCommand{\Prps}{ O{null} O{null} }{\setcounter{subproblem}{0}
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf Задача $\bm\theproblem^* $
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.
+}
+
+\DeclareDocumentCommand{\Prpd}{ O{null} O{null} }{\setcounter{subproblem}{0}
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf Задача $\bm\theproblem^\dagger$
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.
+}
+
+
+\def\prend{
+	\bigskip
+%	\bigskip
+}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% EOF Problems macros  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%\usepackage{erewhon}
+%\usepackage{heuristica}
+%\usepackage{gentium}
+
+\usepackage[portrait, top=3cm, bottom=1.5cm, left=3cm, right=2cm]{geometry}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\lhead{\fontfamily{fca}\selectfont {Основные алгоритмы 2020} }
+%\lhead{ \bf  {ТРЯП. } Семинар 1 }
+%\chead{\fontfamily{fca}\selectfont {Вариант 1}}
+\rhead{\fontfamily{fca}\selectfont Домашнее задание 1}
+%\rhead{\small 01.09.2016}
+\cfoot{}
+
+\usepackage{titlesec}
+\usepackage{lipsum}
+\titleformat{\section}[block]{\Large\bfseries\filcenter {\setcounter{problem}{0}}  }{}{1em}{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Обозначения и операции %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+                                                                    
+\newcommand{\divisible}{\mathop{\raisebox{-2pt}{\vdots}}}           
+\let\Om\Omega
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Shen Macroses %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\w}[1]{{\hbox{\texttt{#1}}}}
+
+
+\begin{document}
+
+\pr Высота дерева $h = log_4 n, T(N) = 3T(\frac{n}{4} + C \Rightarrow a = 3, b = 4 \Rightarrow d = log_4 3)$
+
+	$f(n) = \Theta(n^{log_4 3})$
+
+	$C = O(n^{log_4 3 - \varepsilon}) \Rightarrow T(n) = \Theta (n^{log_4 3})$
+
+\pr	Пусть сумма всех записанных на доске чисел изначально равна $S$. Поскольку на каждом шаге мы берем два числа $a$ и $b$ ($a > b$) и
+вычитаем из $a b$, то сумма $S = S - (a-b)$, то есть $S(n)$ -- монотонно убывающая функция. Т.к. $S$ монотонно убывает и ограничена снизу (т.к. все числа на доске положительны), то,
+очевидно, процесс когда-нибудь остановится, т.к. $S$ обязательно достигнет значения $S_{min}$.
+
+Оставшиеся числа будут равны $d = $НОД$(x_1\dotsx_n)$), т.к. разность любых двух чисел кратна $d$ и сами числа кратны $d$.
+
+\pr 1) Складываем два числа -- сложность $O(n)$
+
+2) Возводим результат в квадрат -- сложнсть $O(m + n) = O(2n) = O(n)$
+
+3) Находим квадраты первого и второго чисел -- сложность $O(m)$ и $O(n) = O(n)$
+
+4) Вычитаем из (2) квадраты -- сложность $O(m+n) = O(n)$
+
+5) Делим результат на 2 -- сложность $O(n)$
+
+В итоге получаем сложность $O(n)$
+
+\pr Самый простой способ нахождения НОК через НОД с помощью формулы: НОК($a, b$) = $\frac{a \cdot b }{\text{НОД}(a, b)}$.
+
+Для получения НОД существует алгоритм Евклида, который работает за $\Theta(n^2)$ (за счет операции деления с остатком).
+
+Далее нам остается произвести операции умножения и деления, которые также совершаются за $\Theta(n^2)$.
+
+Таким образом, суммарная сложность алгоритма -- $\Theta (n^2)$.
+
+\pr Еще из школы мы знаем формулу $(a_1 + a_2 + \dots + a_n)^2 = a_1^2 + a_2^2 + \dots + a_n^2$ и плюс все попарные произведения.
+
+Запишем алгоритм:
+
+1) Вычисляем сумму всех чисел -- $O(n)$
+
+2) Вычисляем сумму квадратов всех чисел -- $O(n)$
+
+3) Вычисляем квадрат суммы всех чисел -- $O(1)$
+
+4) Вычисляем полуразность (3) и (2) -- $O(1)$
+
+Полученный результат будет равен искомой сумме. Таким образом, мы нашли значение необходимой суммы за $O(n)$.
+
+\pr В этой задаче, очевидно, стоит использовать $master$ теорему.
+
+\textbf{а)} $a = 36, b = 6 \Rightarrow log_b a = 2 \Rightarrow F(n) = \Theta(n^2)$
+
+$f(n) = n^2 = \Theta(n^2)$
+
+В таком случае получаем ответ $T(n) = \Theta(n^2logn)$
+
+\textbf{б)} $log_b a = 1 \Rightarrow F(n) = \Theta(n)$
+
+$f(n) = n^2 = \Omega(n^{log_b a + \varepsilon})$
+
+В таком случае $T(n) = \Theta (n^2)$
+
+\textbf{в)} $log_b a = 2 \Rightarrow F(n) = \Theta(n)$
+
+$f(n) = \frac{n}{logn} = O(n^{log_b a - \varepsilon})$
+
+В таком случае $T(n) = \Theta (n^2)$
+
+\pr По сути нам достаточно просто применить к массиву сортировку слиянием, считая каждую перестановку.
+(Соответственно если мы переставили сразу несколько элементов, то мы прибавляем к счетчику число этих элементов)
+$\sum\limits{1}{k}n_i$ (где $k$ - количество перестановок, а $n_i$ -- количество элементов которые переставляют в $i-$той перестановке) будет равна искомому количеству инверсий.
+
+\pr Воспользуемся мастер-теооремой. Здесь будет 3 случая:
+
+1) Начнем с того, что $aT_1\frac{n}{b} = \Theta(n^{log_b a}) = aT_2\frac{n}{b}$
+
+2) Из (1) и из $f(n) = \Theta(g(n)) \Rightarrow T_1(n) = \Theta(T_2(n))$.
+
+
+{Задачу можно решать считая, что их нет, т.е. считать, что на вход $T(n)$ могут подаваться дробные параметры. Это облегчит задачу. Однако для того, чтобы лучше разобраться в теме, рекомендуем решать задачи с учётом округлений.}
+
+\pr Найдите $\Theta$-асимптотику рекуррентной последовательности $T(n)$, считая что $T(n)$ ограничено константой при достаточно малых $n$:
+
+\textbf{В этой задаче везде используется master-теорема, так что высказывания о том, что я использую ее, я, пожалуй, опущу}
+
+\prsubr $T(n) = 3T(\lfloor {n}/4\rfloor) + T(\lceil {n}/6\rceil) + n$;
+
+$T(n) = \Theta(n^{log_4 3}) + \Theta(n^{log_6 1}) + \Omega(n^{log_4 3 + \varepsilon}) = \Theta(f(n)) = \Theta(n)$
+
+\prsubr $T(n)=T(\lfloor \alpha n\rfloor)+T( \lfloor(1-\alpha)n\rfloor)+\Theta(n)$\quad  ($0 < \alpha < 1$);
+
+В силу симметрии и коммутативности суммы можем считать $\alpha < \frac{1}{2}$
+
+В таком случае длина самой короткой ветви будет равна $log_{\alpha}n$. Длина самой длиной ветви -- $log_{1 - \alpha}n.$
+
+Тогда справедливы неравенства $\log_{\alpha}n \cdot \Theta(n) \leq T(n) \leq log_{1-\alpha}n \cdot \Theta(n)$, т.е. $T(n) = \Theta(nlogn)$
+
+\prsubr $T(n)=T(\lfloor n/2\rfloor)+2\cdot T(\lfloor n/4\rfloor)+\Theta(n)$;
+
+Для $T(\frac{n}{2})$ сложность $O(n^{log_2 1})$. Для $2T(\frac{n}{4})$ сложность $O(n^{log_4 2})$.
+
+Т.к. $f(n) = \Theta(n) = \Omega(n^{log_4 2 + \varepsilon_1} = \Omega(n^{log_2 1 + \varepsilon_2}))$, то $T(n) = \Theta(nlogn)$.
+
+\prsubr $T(n) = 27T(\frac{n}{3})+\frac{n^3}{\log^2 n} $.
+
+Для $27T(\frac{n}{3})$ имеем $n^{log_3 27} = n^{3}$.
+
+Т.к. $f(n) = O(n^{3 - \varepsilon})$, то $T(n) = \Theta(n^3)$.
+                                                                                                              
+\pr На вход подаются натуральные числа $n, p$, $n < p, p$ -- простое. Предложите алгоритм, который за $O(n + \log p)$ арифметических операций вычисляет массив длины $n$ ($i$ пробегает значение от $1$ до $n$):
+
+\prsubr $\w{invfac[}i\w{]} = (i!)^{-1}\pmod p$;
+
+
+
+\prsubrstar $\w{inv[}i\w{]} = (i)^{-1}\pmod p$.
+
+\prstar Оцените трудоемкость рекурсивного алгоритма, разбивающего исходную задачу размера $n$ на $n$ задач размеров $\lceil \frac n 2 \rceil$ каждая, используя для этого $\Theta(n)$ операций. 
+
+\prsub Можно считать $n$ степенью двойки.                
+
+Здесь мы имеем $T(n) = nT(\frac{n}{2})$.
+
+Высота дерева равна $log_2 n$.
+
+Количество вызовов на $i-$том уровне: $n(\frac{n}{2})^i$
+
+В итоге имеем $n \cdot \sum\limits_{0}^{log_2 n} (\frac{n}{2})^i = \Theta (n \cdot \frac{n^{log_2 n}}{2^{log_2n}}) = \Theta (n^{log_2n})$.
+
+\prsub Решите для произвольного $n$.
+
+	Аналогично предыдущему пункту, но при делении на 2 просто всегда округляем вверх.
+
+\end{document}
+  

@@ -1,0 +1,309 @@
+\documentclass[12pt]{extreport}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}        % Кодировка входного документа;
+                                    % при необходимости, вместо cp1251
+                                    % можно указать cp866 (Alt-кодировка
+                                    % DOS) или koi8-r.
+
+\usepackage[english,russian]{babel} % Включение русификации, русских и
+                                    % английских стилей и переносов
+%%\usepackage{a4}
+%%\usepackage{moreverb}
+\usepackage{amsmath,amsfonts,amsthm,amssymb,amsbsy,amstext,amscd,amsxtra,multicol}
+\usepackage{indentfirst}
+\usepackage{verbatim}
+\usepackage{tikz} %Рисование автоматов
+\usetikzlibrary{automata,positioning}
+\usepackage{multicol} %Несколько колонок
+\usepackage{graphicx}
+\usepackage[colorlinks,urlcolor=blue]{hyperref}
+\usepackage[stable]{footmisc}
+
+%% \voffset-5mm
+%% \def\baselinestretch{1.44}
+\renewcommand{\theequation}{\arabic{equation}}
+\def\hm#1{#1\nobreak\discretionary{}{\hbox{$#1$}}{}}
+\newtheorem{Lemma}{Лемма}
+\theoremstyle{definiton}
+\newtheorem{Remark}{Замечание}
+%%\newtheorem{Def}{Определение}
+\newtheorem{Claim}{Утверждение}
+\newtheorem{Cor}{Следствие}
+\newtheorem{Theorem}{Теорема}
+\theoremstyle{definition}
+\newtheorem{Example}{Пример}
+\newtheorem*{known}{Теорема}
+\def\proofname{Доказательство}
+\theoremstyle{definition}
+\newtheorem{Def}{Определение}
+
+%% \newenvironment{Example} % имя окружения
+%% {\par\noindent{\bf Пример.}} % команды для \begin
+%% {\hfill$\scriptstyle\qed$} % команды для \end
+
+
+
+
+
+
+%\date{22 июня 2011 г.}
+\let\leq\leqslant
+\let\geq\geqslant
+\def\MT{\mathrm{MT}}
+%Обозначения ``ажуром''
+\def\BB{\mathbb B}
+\def\CC{\mathbb C}
+\def\RR{\mathbb R}
+\def\SS{\mathbb S}
+\def\ZZ{\mathbb Z}
+\def\NN{\mathbb N}
+\def\FF{\mathbb F}
+%греческие буквы
+\let\epsilon\varepsilon
+\let\es\varnothing
+\let\eps\varepsilon
+\let\al\alpha
+\let\sg\sigma
+\let\ga\gamma
+\let\ph\varphi
+\let\om\omega
+\let\ld\lambda
+\let\Ld\Lambda
+\let\vk\varkappa
+\let\Om\Omega
+\def\abstractname{}
+
+\def\R{{\cal R}}
+\def\A{{\cal A}}
+\def\B{{\cal B}}
+\def\C{{\cal C}}
+\def\D{{\cal D}}
+
+%классы сложности
+\def\REG{{\mathsf{REG}}}
+\def\CFL{{\mathsf{CFL}}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Problems macros  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%% Enumerations %%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\Rnum}[1]{\expandafter{\romannumeral #1\relax}}
+\newcommand{\RNum}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
+
+%%%%%%%%%%%%%%%%%%%%% EOF Enumerations %%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{xparse}
+\usepackage{ifthen}
+\usepackage{bm} %%% bf in math mode
+\usepackage{color}
+%\usepackage[usenames,dvipsnames]{xcolor}
+
+\definecolor{Gray555}{HTML}{555555}
+\definecolor{Gray444}{HTML}{444444}
+\definecolor{Gray333}{HTML}{333333}
+
+
+\newcounter{problem}
+\newcounter{uproblem}
+\newcounter{subproblem}
+\newcounter{prvar}
+
+\def\beforPRskip{
+	\bigskip
+	%\vspace*{2ex}
+}
+
+\def\PRSUBskip{
+	\medskip
+}
+
+
+\def\pr{\beforPRskip\noindent\stepcounter{problem}{\bf \theproblem .\;}\setcounter{subproblem}{0}}
+\def\pru{\beforPRskip\noindent\stepcounter{problem}{\bf $\mathbf{\theproblem}^\circ$\!\!.\;}\setcounter{subproblem}{0}}
+\def\prstar{\beforPRskip\noindent\stepcounter{problem}{\bf $\mathbf{\theproblem}^*$\negthickspace.}\setcounter{subproblem}{0}\;}
+\def\prpfrom[#1]{\beforPRskip\noindent\stepcounter{problem}{\bf Задача \theproblem~(№#1 из задания).  }\setcounter{subproblem}{0} }
+\def\prp{\beforPRskip\noindent\stepcounter{problem}{\bf Задача \theproblem .  }\setcounter{subproblem}{0} }
+
+\def\prpvar{\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{1}{\bf Задача \theproblem \;$\langle${\rm\Rnum{\theprvar}}$\rangle$.}\setcounter{subproblem}{0}\;}
+\def\prpv{\beforPRskip\noindent\stepcounter{prvar}{\bf Задача \theproblem \,$\bm\langle$\bracketspace{{\rm\Rnum{\theprvar}}}$\bm\rangle$.  }\setcounter{subproblem}{0} }
+\def\prv{\beforPRskip\noindent\stepcounter{prvar}{\bf \theproblem\,$\bm\langle$\bracketspace{{\rm\Rnum{\theprvar}}}$\bm\rangle$}.\setcounter{subproblem}{0} }
+
+\def\prpstar{\beforPRskip\noindent\stepcounter{problem}{\bf Задача $\bf\theproblem^*$\negthickspace.  }\setcounter{subproblem}{0} }
+\def\prdag{\beforPRskip\noindent\stepcounter{problem}{\bf Задача $\theproblem^{^\dagger}$\negthickspace\,.  }\setcounter{subproblem}{0} }
+\def\upr{\beforPRskip\noindent\stepcounter{uproblem}{\bf Упражнение \theuproblem .  }\setcounter{subproblem}{0} }
+%\def\prp{\vspace{5pt}\stepcounter{problem}{\bf Задача \theproblem .  } }
+%\def\prs{\vspace{5pt}\stepcounter{problem}{\bf \theproblem .*   }
+\def\prsub{\PRSUBskip\noindent\stepcounter{subproblem}{\sf \thesubproblem .} }
+\def\prsubr{\PRSUBskip\noindent\stepcounter{subproblem}{\bf \asbuk{subproblem})}\;}
+\def\prsubstar{\PRSUBskip\noindent\stepcounter{subproblem}{\rm $\thesubproblem^*$\negthickspace.  } }
+\def\prsubrstar{\PRSUBskip\noindent\stepcounter{subproblem}{$\text{\bf \asbuk{subproblem}}^*\mathbf{)}$}\;}
+
+\newcommand{\bracketspace}[1]{\phantom{(}\!\!{#1}\!\!\phantom{)}}
+
+\DeclareDocumentCommand{\Prpvar}{ O{null} O{} }{
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{1}{\bf Задача \theproblem
+% 	\ifthenelse{\equal{#1}{null}}{  }{ {\sf $\bm\langle$\bracketspace{#1}$\bm\rangle$}}
+%	~\!\!(\bracketspace{{\rm\Rnum{\theprvar}}}).  }\setcounter{subproblem}{0}
+%	\;(\bracketspace{{\rm\Rnum{\theprvar}}})}\setcounter{subproblem}{0}
+%
+	\,{\sf $\bm\langle$\bracketspace{{\rm\Rnum{\theprvar}}}$\bm\rangle$}
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}}.
+
+}
+%\DeclareDocumentCommand{\Prpvar}{ O{level} O{meta} m }{\prpvar}
+
+
+\DeclareDocumentCommand{\Prp}{ O{null} O{null} }{\setcounter{subproblem}{0}
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf Задача \theproblem
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.}
+
+\DeclareDocumentCommand{\Pr}{ O{null} O{null} }{\setcounter{subproblem}{0}
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf\theproblem
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.}
+
+%\DeclareDocumentCommand{\Prp}{ O{level} O{meta} }
+
+\DeclareDocumentCommand{\Prps}{ O{null} O{null} }{\setcounter{subproblem}{0}
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf Задача $\bm\theproblem^* $
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.
+}
+
+\DeclareDocumentCommand{\Prpd}{ O{null} O{null} }{\setcounter{subproblem}{0}
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf Задача $\bm\theproblem^\dagger$
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.
+}
+
+
+\def\prend{
+	\bigskip
+%	\bigskip
+}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% EOF Problems macros  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%\usepackage{erewhon}
+%\usepackage{heuristica}
+%\usepackage{gentium}
+
+\usepackage[portrait, top=3cm, bottom=1.5cm, left=3cm, right=2cm]{geometry}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\lhead{\fontfamily{fca}\selectfont {Основные алгоритмы 2022} }
+%\lhead{ \bf  {Основные алгоритмы. } Павлов М.А. }
+%\chead{\fontfamily{fca}\selectfont {Вариант 1}}
+\rhead{\fontfamily{fca}\selectfont Павлов М.А. Домашнее задание 6}
+%\rhead{\small 01.09.2016}
+\cfoot{}
+
+\usepackage{titlesec}
+\titleformat{\section}[block]{\Large\bfseries\filcenter {\setcounter{problem}{0}}  }{}{1em}{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Обозначения и операции %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+                                                                    
+\newcommand{\divisible}{\mathop{\raisebox{-2pt}{\vdots}}}           
+\let\Om\Omega
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Shen Macroses %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\w}[1]{{\hbox{\texttt{#1}}}}
+
+%\newcommand{\Prob}{\mathop{\mathrm{P}}}
+\newcommand{\Ex}{\mathop{\mathrm{E}}}
+
+\begin{document}
+	
+
+
+\pr  Игрок играет в казино в следующую игру. Делает ставку $c$, говорит крупье число от $1$ до $6$, после чего бросает три кубика. Если его число не выпало, то игрок ничего не получает, т.\,е. проигрывает 100 рублей; считаем, что в этом случае его выигрыш равен $-100$. Если же число выпало, то игрок получает свою ставку обратно и получает выигрыш~"--- за каждое выпадание числа, казино платит игроку ставку, которую он поставил. Так, если игрок поставил сто рублей и его число выпало два раза, то игрок получит выигрыш $200$ рублей, а если не выпало ни разу, то его выигрыш равен $-100$ рублей. Найдите математическое ожидание выигрыша игрока, при ставке $100$ рублей.
+
+По формуле мат. ожадания $E = 3 \frac{1}{6} \cdot \frac{5}{6} \cdot \frac{5}{6} \cdot 100 + 3 \cdot 200 \frac{1}{36} \cdot \frac{5}{6} + 300 \frac{1}{216} - 100 \frac{125}{216} = - \frac{1700}{216} = - \frac{425}{54}$
+
+  	\pr В лотерее на выигрыши уходит $40\%$ от стоимости проданных
+	билетов. Каждый билет стоит 100 рублей. Докажите, что вероятность
+	выиграть 5000 рублей (или больше) меньше $1\%$. 
+
+	\begin{proof}
+		Докажем от противного:
+
+		Пусть $1\%$ или больше. В таком случае математическое ожидание выигрыша равно $E_0 \cdot 0.99 + 0.01 \cdot 5000 \ge 50.$
+		
+		Но в таком случае получается, что на каждый билет в среднем ожидается как минимум 50 рублей выигрыша, т.е. $50\%$ стоимости билета, откуда становится ясно,
+		что на все выигрыши уходит более 50$\%$ стоимости проданных билетов, что противоречит условию. 
+		
+		Значит, предположение неверно и вероятность выиграть $\geq 5000$ рублей менее процента.
+
+	\end{proof}
+
+	\noindent\textbf{Замечание.} Подробности о проведении лотерии неизвестны. Приведённой информации в условии достаточно для решения задачи.
+
+	\pr Выбирается случайное  слово длины 20 в алфавите $\{a,b\}$ (все
+	слова равновозможны). Найдите математическое ожидание числа подслов
+	$ab$ в этом слове.
+
+	Решим задачу через рекурсию, найдя количество подслов ab. 
+
+	Заметим, что при выделении подслова ab, мы будем решать аналогичную задачу, но уже для слова длины $n-2$. Это слово может стоять на $n-1$-ой позиции.
+
+	Таким образом, число вхождений подслова ab равно $(n-1) \cdot 2^{n-2}$. Общее же количество слов $2^n$. 
+
+	Тогда мат ожидание равно $\frac{(n-1) \cdot 2^{n-2}}{2^n} = \frac{n-1}{4}.$
+
+	\pr \emph{Инверсией} в перестановке $a_1a_2\dots a_n$ называется такая пара
+	индексов $i<j$, что $a_i>a_j$. Пусть $\pi$~--- случайная перестановка
+	(все перестановки равновозможны). Найдите математическое ожидание
+	$\Ex[I(\pi)]$ количества инверсий $I(\pi)$.
+	
+	Поскольку из курса ОВАиТК мы знаем, что для каждой перестановки существует обратная, то, очевидно, вероятность встретить инверсию равна $\frac{1}{2}$.
+
+	В таком случае мат ожидание количества инверсий равно $\frac{1}{2} \frac{n \cdot (n-1)}{2} = \frac{n \cdot (n-1)}{4}$.
+
+	\pr Вероятностное пространство~"--- перестановки $(x_1,\ldots,x_n)$ элементов от $1$ до $n$. Найдите математическое ожидание чисел, не поменявших своё место. Формально, случайная величина~"--- количество элементов множества $\{i \mid x_i = i\}$.
+	
+	Можно заметить, что эта задача изоморфна задаче о рассеянной секретарше, которая разбиралась в курсе АЛКТГ. То есть здесь вероятность, что число не поменяло свое место это вероятность, что письмо дойдет до адресата в задаче о секретарше, т.е. $\frac{1}{n}$.
+
+	В таком случае математическое ожидание будет равно $\sum_1 ^n \frac{1}{n} = 1$.
+
+	\pr Пусть  $X$~--- неотрицательная случайная величина. Известно, что
+	$\Ex[2^X]=5$. Докажите, что $$\Prob[X\geq 6]< 1/10.$$
+
+		\begin{proof}
+			Вновь попробуем доказать от противного:
+
+			Пусть вероятность числа $\geq 6$ больше или равна $\frac{1}{10}$.
+
+			В таком случае математическое ожидание будет равно $E_0 + (\frac{1}{10} + \alpha) 2^{6 + \beta} \geq E_0 + \frac{1}{10} 2^6 = E_0 + 6.4 > 5$, что противоречит условию. Значит, предположение неверно и вероятность, что $X \geq 6 < \frac{1}{10}$.
+		\end{proof}
+	
+	\pr В неориентированном графе без петель и кратных ребер графе $n$ вершин и $nd/2$ рёбер (то есть средняя степень вершины
+		равна $d$), $d\geq1$. Докажите, что в графе есть независимое множество
+		размера не меньше $n/2d$.
+		
+		И вновь воспользуемся нашими знаниями из курса АЛКТГ.
+
+		Мы доказывали следующую теорему: $\chi (G) \geq \frac{n}{\alpha(G)}$, где $\chi$ -- это хроматическое число, а $\alpha(G)$ -- число независимости.
+
+		Из этой теоремы $\alpha (G) \geq \frac{n}{\chi(G)}$.
+
+		Очевидно, что при средней степени вершины $d$ максимальное значение хроматического числа при наличии клики $K_{2d}$, т.е. максимально возможное хроматическое число для графа с таким количество вершин равно $2d$. 
+		
+		Значит, $\alpha (G) \geq \frac{n}{2d}$, т.е. в графе найдется независимое множество не меньше $\frac{n}{2d}$.
+
+	\textsl{Подсказка.} В решении этой задачи поможет случайное множество
+	$V_p$, в которое каждая вершина входит с вероятностью $p$ независимо
+	от других вершин. (При подходящем значении параметра $p$.)
+\end{document}
+  

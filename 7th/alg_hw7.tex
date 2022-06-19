@@ -1,0 +1,369 @@
+\documentclass[12pt]{extreport}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}        % Кодировка входного документа;
+                                    % при необходимости, вместо cp1251
+                                    % можно указать cp866 (Alt-кодировка
+                                    % DOS) или koi8-r.
+
+\usepackage[english,russian]{babel} % Включение русификации, русских и
+                                    % английских стилей и переносов
+%%\usepackage{a4}
+%%\usepackage{moreverb}
+\usepackage{amsmath,amsfonts,amsthm,amssymb,amsbsy,amstext,amscd,amsxtra,multicol}
+\usepackage{indentfirst}
+\usepackage{verbatim}
+\usepackage{tikz} %Рисование автоматов
+\usetikzlibrary{automata,positioning}
+%\usepackage{multicol} %Несколько колонок
+\usepackage{graphicx}
+\usepackage[colorlinks,urlcolor=blue]{hyperref}
+\usepackage[stable]{footmisc}
+
+%% \voffset-5mm
+%% \def\baselinestretch{1.44}
+\renewcommand{\theequation}{\arabic{equation}}
+\def\hm#1{#1\nobreak\discretionary{}{\hbox{$#1$}}{}}
+\newtheorem{Lemma}{Лемма}
+\theoremstyle{definiton}
+\newtheorem{Remark}{Замечание}
+%%\newtheorem{Def}{Определение}
+\newtheorem{Claim}{Утверждение}
+\newtheorem{Cor}{Следствие}
+\newtheorem{Theorem}{Теорема}
+\theoremstyle{definition}
+\newtheorem{Example}{Пример}
+\newtheorem*{known}{Теорема}
+\def\proofname{Доказательство}
+\theoremstyle{definition}
+\newtheorem{Def}{Определение}
+
+%% \newenvironment{Example} % имя окружения
+%% {\par\noindent{\bf Пример.}} % команды для \begin
+%% {\hfill$\scriptstyle\qed$} % команды для \end
+
+
+
+
+
+
+%\date{22 июня 2011 г.}
+\let\leq\leqslant
+\let\geq\geqslant
+\def\MT{\mathrm{MT}}
+%Обозначения ``ажуром''
+\def\BB{\mathbb B}
+\def\CC{\mathbb C}
+\def\RR{\mathbb R}
+\def\SS{\mathbb S}
+\def\ZZ{\mathbb Z}
+\def\NN{\mathbb N}
+\def\FF{\mathbb F}
+%греческие буквы
+\let\epsilon\varepsilon
+\let\es\varnothing
+\let\eps\varepsilon
+\let\al\alpha
+\let\sg\sigma
+\let\ga\gamma
+\let\ph\varphi
+\let\om\omega
+\let\ld\lambda
+\let\Ld\Lambda
+\let\vk\varkappa
+\let\Om\Omega
+\def\abstractname{}
+
+\def\R{{\cal R}}
+\def\A{{\cal A}}
+\def\B{{\cal B}}
+\def\C{{\cal C}}
+\def\D{{\cal D}}
+
+%классы сложности
+\def\REG{{\mathsf{REG}}}
+\def\CFL{{\mathsf{CFL}}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Problems macros  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%% Enumerations %%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\Rnum}[1]{\expandafter{\romannumeral #1\relax}}
+\newcommand{\RNum}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
+
+%%%%%%%%%%%%%%%%%%%%% EOF Enumerations %%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{xparse}
+\usepackage{ifthen}
+\usepackage{bm} %%% bf in math mode
+\usepackage{color}
+%\usepackage[usenames,dvipsnames]{xcolor}
+
+\definecolor{Gray555}{HTML}{555555}
+\definecolor{Gray444}{HTML}{444444}
+\definecolor{Gray333}{HTML}{333333}
+
+
+\newcounter{problem}
+\newcounter{uproblem}
+\newcounter{subproblem}
+\newcounter{prvar}
+
+\def\beforPRskip{
+	\bigskip
+	%\vspace*{2ex}
+}
+
+\def\PRSUBskip{
+	\medskip
+}
+
+
+\def\pr{\beforPRskip\noindent\stepcounter{problem}{\bf \theproblem .\;}\setcounter{subproblem}{0}}
+\def\pru{\beforPRskip\noindent\stepcounter{problem}{\bf $\mathbf{\theproblem}^\circ$\!\!.\;}\setcounter{subproblem}{0}}
+\def\prstar{\beforPRskip\noindent\stepcounter{problem}{\bf $\mathbf{\theproblem}^*$\negthickspace.}\setcounter{subproblem}{0}\;}
+\def\prpfrom[#1]{\beforPRskip\noindent\stepcounter{problem}{\bf Задача \theproblem~(№#1 из задания).  }\setcounter{subproblem}{0} }
+\def\prp{\beforPRskip\noindent\stepcounter{problem}{\bf Задача \theproblem .  }\setcounter{subproblem}{0} }
+
+\def\prpvar{\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{1}{\bf Задача \theproblem \;$\langle${\rm\Rnum{\theprvar}}$\rangle$.}\setcounter{subproblem}{0}\;}
+\def\prpv{\beforPRskip\noindent\stepcounter{prvar}{\bf Задача \theproblem \,$\bm\langle$\bracketspace{{\rm\Rnum{\theprvar}}}$\bm\rangle$.  }\setcounter{subproblem}{0} }
+\def\prv{\beforPRskip\noindent\stepcounter{prvar}{\bf \theproblem\,$\bm\langle$\bracketspace{{\rm\Rnum{\theprvar}}}$\bm\rangle$}.\setcounter{subproblem}{0} }
+
+\def\prpstar{\beforPRskip\noindent\stepcounter{problem}{\bf Задача $\bf\theproblem^*$\negthickspace.  }\setcounter{subproblem}{0} }
+\def\prdag{\beforPRskip\noindent\stepcounter{problem}{\bf Задача $\theproblem^{^\dagger}$\negthickspace\,.  }\setcounter{subproblem}{0} }
+\def\upr{\beforPRskip\noindent\stepcounter{uproblem}{\bf Упражнение \theuproblem .  }\setcounter{subproblem}{0} }
+%\def\prp{\vspace{5pt}\stepcounter{problem}{\bf Задача \theproblem .  } }
+%\def\prs{\vspace{5pt}\stepcounter{problem}{\bf \theproblem .*   }
+\def\prsub{\PRSUBskip\noindent\stepcounter{subproblem}{\sf \thesubproblem .} }
+\def\prsubr{\PRSUBskip\noindent\stepcounter{subproblem}{\bf \asbuk{subproblem})}\;}
+\def\prsubstar{\PRSUBskip\noindent\stepcounter{subproblem}{\rm $\thesubproblem^*$\negthickspace.  } }
+\def\prsubrstar{\PRSUBskip\noindent\stepcounter{subproblem}{$\text{\bf \asbuk{subproblem}}^*\mathbf{)}$}\;}
+
+\newcommand{\bracketspace}[1]{\phantom{(}\!\!{#1}\!\!\phantom{)}}
+
+\DeclareDocumentCommand{\Prpvar}{ O{null} O{} }{
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{1}{\bf Задача \theproblem
+% 	\ifthenelse{\equal{#1}{null}}{  }{ {\sf $\bm\langle$\bracketspace{#1}$\bm\rangle$}}
+%	~\!\!(\bracketspace{{\rm\Rnum{\theprvar}}}).  }\setcounter{subproblem}{0}
+%	\;(\bracketspace{{\rm\Rnum{\theprvar}}})}\setcounter{subproblem}{0}
+%
+	\,{\sf $\bm\langle$\bracketspace{{\rm\Rnum{\theprvar}}}$\bm\rangle$}
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}}.
+
+}
+%\DeclareDocumentCommand{\Prpvar}{ O{level} O{meta} m }{\prpvar}
+
+
+\DeclareDocumentCommand{\Prp}{ O{null} O{null} }{\setcounter{subproblem}{0}
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf Задача \theproblem
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.}
+
+\DeclareDocumentCommand{\Pr}{ O{null} O{null} }{\setcounter{subproblem}{0}
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf\theproblem
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.}
+
+%\DeclareDocumentCommand{\Prp}{ O{level} O{meta} }
+
+\DeclareDocumentCommand{\Prps}{ O{null} O{null} }{\setcounter{subproblem}{0}
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf Задача $\bm\theproblem^* $
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.
+}
+
+\DeclareDocumentCommand{\Prpd}{ O{null} O{null} }{\setcounter{subproblem}{0}
+	\beforPRskip\noindent\stepcounter{problem}\setcounter{prvar}{0}{\bf Задача $\bm\theproblem^\dagger$
+	~\!\!\! \ifthenelse{\equal{#1}{null}}{\!}{{\sf(\bracketspace{#1})}}
+	 \ifthenelse{\equal{#2}{null}}{\!\!}{{\sf [\color{Gray444}\,\bracketspace{{\fontfamily{afd}\selectfont#2}}\,]}}}.
+}
+
+
+\def\prend{
+	\bigskip
+%	\bigskip
+}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% EOF Problems macros  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%\usepackage{erewhon}
+%\usepackage{heuristica}
+%\usepackage{gentium}
+
+\usepackage[portrait, top=3cm, bottom=1.5cm, left=3cm, right=2cm]{geometry}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\lhead{\fontfamily{fca}\selectfont {Основные алгоритмы 2022 Павлов М.А.} }
+%\lhead{ \bf  {ТРЯП. } Семинар 1 }
+%\chead{\fontfamily{fca}\selectfont {Вариант 1}}
+\rhead{\fontfamily{fca}\selectfont Домашнее задание 7}
+%\rhead{\small 01.09.2016}
+\cfoot{}
+
+\usepackage{titlesec}
+\titleformat{\section}[block]{\Large\bfseries\filcenter {\setcounter{problem}{0}}  }{}{1em}{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Обозначения и операции %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+                                                                    
+\newcommand{\divisible}{\mathop{\raisebox{-2pt}{\vdots}}}           
+\let\Om\Omega
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Shen Macroses %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\w}[1]{{\hbox{\texttt{#1}}}}
+
+\newcommand{\Prob}{\mathop{\mathrm{P}}}
+\newcommand{\Ex}{\mathop{\mathrm{E}}}
+
+\usepackage[linesnumbered]{algorithm2e}   
+
+\begin{document}
+	
+
+\pr Известны открытые ключи Алисы $(107, 187)$ и Боба $(7, 253)$. Алиса хочет послать сообщение $17$ Бобу и подписать его своей подписью. Вычислите зашифрованное сообщение Алисы и его цифровую подпись.
+
+\prend
+
+$Cm = P_B(17) = 17^7 (mod 253) = 17 \cdot (17^3)^2 (mod 253) = 17 \cdot (17 \cdot 17^2)^2 (mod 253) \equiv 17 \cdot (17 \cdot 36)^2 (mod 253) \equiv 17 \cdot (106)^2 (mod 253) \equiv 17 \cdot 104 (mod 253) \equiv 250 (mod 253)$ -- то есть 250 -- это зашифрованное сообщение Алисы Бобу.
+
+$\phi_A (N) = 10 \cdot 16 = 160$
+
+$e = d^{-1} mod 160 \Rightarrow ed = 1 mod 160 \Rightarrow 107d + 160n = 1$. Методом пристального взгляда спокойно находится решение: $d = 3, n = -2$.
+
+Тогда секретный ключ Алисы $S_A = (3, 187)$. С помощью него мы можем с легкостью узнать цифровую подпись!
+
+$s = 17^3 mod 187 \equiv 17 \cdot 289 mod 187 \equiv 17 \cdot 102 mod 187 \equiv 51 mod 187 = 51$.
+
+Таким образом, мы получаем цифровую подпись сообщения, равную 51.
+
+
+\pr Вы хотите, чтоб некто М подписал своей электронной подписью сообщение x. Однако, очевидно, вы не добьётесь результата, послав М сообщение x, поскольку оно выглядит подозрительно. Однако, пусть $(e, n)$ открытый ключ М, а $(d, n)$~"--- его секретный ключ ($d$ вам неизвестно).
+
+Возьмём случайное число $r$ по модулю $n$ и составим сообщение $y = r^ex \pmod n$.
+Предположим, что $y$ выглядит достаточно невинно, для того, чтобы М согласился подписать
+$y$ своей электронной подписью и переслать вам подписанную версию: $s_y$.
+Если $M$ подпишет сообщение, то как по подписанному сообщению $s_y$ и известным вам данным
+получить правильную подпись для сообщения $x$?
+
+\prend
+
+$y = r^ex (modn) = (r \cdot x^{\frac{1}{e}})^e mod n$
+
+M посылает электронную подпись $s_y = y^d mod n$, откуда $s_y = nk + y^d \Rightarrow n = \frac{s_y - y^d}{k}$
+
+Мы знаем, что $ed = 1 mod \phi (n)$. Отсюда $d = \frac{1}{e} mod n.$
+
+Правильная подпись для сообщения x: $s_x = x^d mod n = x^{\frac{1}{e} mod n} mod n$ (n мы можем найти из формулы выше).
+
+\pr Алиса и три её друга используют криптосистему RSA. При этом её друзья используют открытые ключи $(N_i , 3)$ с возведением в степень $3$, и $N_i = p_iq_i$ для случайно выбранных $n$-битовых простых чисел $p_i$ и $q_i$. Покажите, что если Алиса пошлёт одно и то же $n$-битовое сообщение $M$ всем троим, то перехватившая все три закодированных сообщения Ева (и знающая открытые ключи) сможет быстро (полиномиально) восстановить $M$. 
+
+\noindent\textbf{Указания.} Пусть модули попарно взаимнопросты. Как, зная зашифрованные сообщения,  получить значение $M^3 \pmod{N_1N_2N_3}$?
+
+\prend
+
+Когда \textbf{Ева} перехватит сообщения, у нее будут данные $M^3 (mod N_1)$, $M^3 (mod N_2)$ и $M^3 (mod N_3)$.
+
+Далее \textbf{Ева} пользуется Китайской теоремой об остатках, с помощью которой узнает значение $M^3 mod(N_1 \cdot N_2 \cdt N_3)$.
+
+После этого \textbf{злой Еве} остается лишь извлечь кубический корень из полученного результата $M^3$, и таким образом она восстановит M.
+
+\pr Ева решила подобрать секретный ключ Алисы $(d, N)$ с помощью вероятности: она выбирает случайное число от $2$ до $N-1$ и проверяет, подходит ли оно на роль $d$ за полиномиальное время. Оцените ассимптотически математическое ожидание числа попыток Евы. Является ли её алгоритм более эффективным (в среднем), чем полный перебор?
+
+	В алгоритме Евы события, что Ева подобрала нужное числа, независимы, поэтому мат ожидание суммы равно сумме мат ожиданий, то есть $\sum_{1}^{k} \frac{1}{N-2}$, где $k$ -- среднее количество попыток, после которых Ева найдет ключ. Нетрудно догадаться, что $k = N - 2$.
+
+	В случае с простым перебором вероятность достать ключ на $i$-той попытке равна $\frac{1}{N-1-i}$ -- видно, что это даже эффективнее алгоритма Евы (хотя по ассимптотике они равны).
+
+	Значит, алгоритм Евы не является в среднем более эффективным, чем полный перебор.
+
+	\SetKwProg{Fn}{Function}{ :}{end}
+	\SetKwFunction{RandomSample}{RandomSample}	
+	\SetKwFunction{Random}{Random}	
+
+
+\pr Докажите, что алгоритм, заданный псевдокодом строит случайное $m$-элементное подмножество множества $\{1,\ldots, n\}$. То есть, что $\RandomSample{m, n}$ равновероятно возвращает каждое $m$-элементное подмножество, в предположении, что $\Random{1,n}$ случайная величина, возвращающая с равной вероятностью числа от $1$ до $n$.
+
+ \begin{algorithm}[H]
+   \Fn{\RandomSample{$m, n$}}{
+       \uIf{$m == 0$}{
+        	\KwRet $\es$
+		}\Else{
+			   $S = $\RandomSample{$m-1, n-1$}\;
+			   $i = $\Random{$1,n$}\;
+		       \uIf{$i \in S$}{
+		        	\KwRet $S\cup \{n\}$
+				}\Else{
+					\KwRet $S\cup \{i\}$
+				}
+	   }		
+	} 
+   
+\end{algorithm}
+
+\prend
+
+	Дисклеймер: можно сразу перемотать решение на конец, т.к. там я расписал решение, которое мне пришло в голову непосредственно перед отправкой.
+	Но если у читателя есть желание развлечься, то при желании можно и прочитать ту тяжелую дичь, которую я написал изначально.
+
+	\textbf{jmp метка}
+
+	Сразу отметим, что этот алгоритм можно изобразить с помощью рекурсивного дерева из одной ветки (делать мы это, конечно же, не будем).
+
+	Заметим, что дерево у нас растет снизу вверх (логично): от листьев к корню (что?).
+
+	Когда мы окажемся в самом низу, значения наших m и n будут следующими: 1 и $n - m + 1$.
+	То есть $i$ в этой вершине может с равной вероятностью принимать значения от 1 до $n - m + 1$. И мы добавляем его в наше множество.
+
+	Далее на второй вершине $i$ принимает с равной вероятностью значения от 1 до $n - m + 2$, но немного не совсем. Если выпадает число, которое уже в множестве, то мы добавляем в множество $n - m + 2$. Таким образом, у этого числа вероятность выпасть в два раза больше, чем у остальных.
+
+	И так далее до корня дерева.
+
+	Таким образом, у нас получается вероятность для $n - m + 1$ чисел: $\frac{1}{n - m + 1}, \frac{1}{n - m + 2}, \frac{1}{n - m + 3}, \dots, \frac{1}{n}$.
+
+	Вероятность для $n - m + i$-ого числа: (i - 1) нулей, $\frac{i}{n - m + i}, \frac{1}{n - m + i + 1}, \dots \frac{1}{n}$.
+
+	И соответственно для $m$-того числа: $\frac{m}{n}$.
+
+	Математическое ожидание каждого элемента будет вычисляться с помощью суммы $A_i + \overline{A_i} \cdot B_i + \overline{A_i} \overline{B_i} \cdot C_i + \dots + \overline{A_i} \overline{B_i} \dots \overline{Y_i} \cdot Z_i$.
+
+	Несложно заметить, что $A_i + \overline{A_i} \cdot B_i = B_i (A_i + \overline{A_i}) + (1 - B_i) \cdot A_i = B_i + A_i + 0 = A_i + B_i$ -- вероятности $i$-ого и $i+1$-ого равны после $i$-ого шага.
+
+	И аналогично можно расписать вероятность попадания в множество каждого числа. У нас получится $\frac{m}{n}$ для каждого числа, откуда следует, что все $m$-элементные подмножества равновероятны.
+
+	\textbf{метка:}
+
+	Итак, для $i$-ого числа найдем вероятность, что оно не попало в подпоследовательность:
+
+	$\frac{n-1}{n} \cdot \frac{n-2}{n-1} \cdot \dots \cdot \frac{n-m+i}{n-m+i+1} \cdot \frac{(n-m+i) - i}{n-m+i}$.
+
+	Ну и тут все числители и знаменатели (кроме первого знаменателя и последнего числителя) сокращаются, и мы получаем, что вероятность НЕ попасть в множество $i$-того члена равна $\frac{n-m}{n}$ -- не зависит от $i$! (это восклицательный знак).
+
+	То все элементы с равной вероятностью НЕ попадут в подмножество, откуда следует, что они с равной вероятностью попадут в подмножество (вроде очевидно, но на всякий случай проверим).
+
+	Каждый элемент попадет в подмножество с вероятностью $1 - \frac{n-m}{n} = \frac{m}{n}$ -- что вполне логично, т.е. мат ожидание количества элементов в подмножестве в таком случае ровно $m$.
+
+\pr Рандомизированный алгоритм поиска $k$-й порядковой статистики на каждом шаге делает partition по случайному элементу отрезка массива (если в нём более одного элемента) и рекурсивно вызывается либо для левого, либо для правого отрезка получившегося разбиения. Докажите, что математическое ожидание времени работы алгоритма есть $O(n)$, используя анализ индикаторных случайных величин $X_{i,j,k}$, возвращающих $1$, если $i$-я порядковая статистика массива сравнивалась с $j$-й (при поиске $k$-й порядковой статистики).
+
+
+\noindent\textbf{Указания.}
+
+\prsub Получите явную формулу для $\Ex[X_{i,j,k}]$.
+
+\prsub Пусть $X_k$~"--- случайная величина, возвращающая число всех сравнений при поиске $k$-й порядковой статистики. Покажите, что
+
+$$ \mathrm{E}\left[X_{k}\right] \leq 2\left(\sum_{i=1}^{k} \sum_{j=k}^{n} \frac{1}{j-i+1}+\sum_{j=k+1}^{n} \frac{j-k-1}{j-k+1}+\sum_{i=1}^{k-2} \frac{k-i-1}{k-i+1}\right) $$
+
+\prsub Докажите $\Ex[X_{i,j,k}] \leq 4n$.
+
+
+
+\end{document}
+  
